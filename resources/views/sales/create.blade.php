@@ -39,7 +39,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>excepturi</td>
+                        <td>excepturi excepturi excepturi excepturi excepturi</td>
                         <td style="min-width: 140px;">
                             <form action="http://127.0.0.1:8000/pos/update/064c8a2fda8451c8c23926d6d3592023" method="POST">
                                 <input type="hidden" name="_token" value="9Brx75LSSBXCHjFMQ2pfCW23tay6MjbrUGcZgr9V" autocomplete="off">                                <div class="input-group">
@@ -132,7 +132,7 @@
                                     <td>
                                         <img class="avatar-60 rounded" src="http://127.0.0.1:8000/assets/images/product/default.webp">
                                     </td>
-                                    <td>excepturi</td>
+                                    <td>excepturi excepturi excepturi excepturi excepturi</td>
                                     <td>88</td>
                                     <td>
                                         <form action="http://127.0.0.1:8000/pos/add" method="POST" style="margin-bottom: 5px">
