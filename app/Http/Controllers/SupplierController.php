@@ -14,7 +14,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        return view('supplier.index');
+        //
     }
 
     /**
@@ -24,7 +24,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        return view('supplier.create');
+        //
     }
 
     /**
@@ -55,9 +55,9 @@ class SupplierController extends Controller
      * @param  \App\Models\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Supplier $supplier)
     {
-        return view('supplier.update');
+        //
     }
 
     /**

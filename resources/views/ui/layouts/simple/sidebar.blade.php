@@ -16,7 +16,7 @@
 					</li>
 
                         <li class="sidebar-list">
-                            <a class="sidebar-link sidebar-title link-nav {{ Route::currentRouteName()=='index' ? 'active' : '' }}" href="{{route('index')}}">
+                            <a class="sidebar-link sidebar-title link-nav " href="{{route('index')}}">
                                 <i data-feather="git-pull-request"> </i><span>{{ trans('lang.Dashboard') }}</span>
                             </a>
                     </li>
@@ -27,56 +27,59 @@
 						</div>
 					</li>
                     <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title {{ request()->routeIs(['sales.index','sales.create']) ? 'active' : '' }}" href="#">
+						{{-- {{ request()->routeIs(['sales.index','sales.create']) ? 'active' : '' }} --}}
+                        <a class="sidebar-link sidebar-title " href="#">
                             <i data-feather="shopping-cart"></i><span>Sales</span>
-                            <div class="according-menu"><i class="fa fa-angle-{{request()->routeIs(['sales.index','sales.create']) ? 'down' : 'right' }}"></i></div>
+							{{-- {{request()->routeIs(['sales.index','sales.create']) ? 'down' : 'right' }} --}}
+                            <div class="according-menu"><i class="fa fa-angle-"></i></div>
                         </a>
                         <ul class="sidebar-submenu" style="display: {{request()->routeIs(['sales.index','sales.create']) ? 'block' : 'none;' }};">
-                            <li><a href="{{route('sales.index')}}" class="{{ Route::currentRouteName()=='sales.index' ? 'active' : '' }}">Sales</a></li>
-                            <li><a href="{{route('sales.create')}}" class="{{ Route::currentRouteName()=='sales.create' ? 'active' : '' }}">Create Sale</a></li>
+                            <li><a href="" class="">Sales</a></li>
+                            <li><a href="" class="">Create Sale</a></li>
                         </ul>
                     </li>
 					<li class="sidebar-list">
-						<a class="sidebar-link sidebar-title {{ request()->routeIs(['purchase.index','purchase.create']) ? 'active' : '' }}" href="#">
+						<a class="sidebar-link sidebar-title " href="#">
 							<i data-feather="shopping-bag"></i><span>Authors</span>
-							<div class="according-menu"><i class="fa fa-angle-{{request()->routeIs(['purchase.index','purchase.create']) ? 'down' : 'right' }}"></i></div>
+							<div class="according-menu"><i class="fa fa-angle-"></i></div>
 						</a>
-						<ul class="sidebar-submenu" style="display: {{request()->routeIs(['purchase.index','purchase.create'])  ? 'block' : 'none;' }};">
-		                    <li><a href="{{route('purchase.index')}}" class="{{ Route::currentRouteName()=='purchase.index' ? 'active' : '' }}">Authors</a></li>
-		                    <li><a href="{{route('purchase.create')}}" class="{{ Route::currentRouteName()=='purchase.create' ? 'active' : '' }}">Create Author</a></li>
+						{{-- {{request()->routeIs(['purchase.index','purchase.create'])  ? 'block' : 'none;' }} --}}
+						<ul class="sidebar-submenu" style="display: block;">
+		                    <li><a href="" class="">Authors</a></li>
+		                    <li><a href="" class="">Create Author</a></li>
 		                </ul>
 					</li>
 
 
 
                     <li class="sidebar-list">
-						<a class="sidebar-link sidebar-title {{ request()->routeIs(['payment.index','payment.create']) ? 'active' : '' }}" href="#">
+						<a class="sidebar-link sidebar-title" href="#">
 							<i data-feather="dollar-sign"></i><span>Publishers</span>
-							<div class="according-menu"><i class="fa fa-angle-{{request()->routeIs(['payment.index','payment.create']) ? 'down' : 'right' }}"></i></div>
+							<div class="according-menu"><i class="fa fa-angle-"></i></div>
 						</a>
-						<ul class="sidebar-submenu" style="display: {{request()->routeIs(['payment.index','payment.create']) ? 'block' : 'none;' }};">
-		                    <li><a href="{{route('payment.index')}}" class="{{ Route::currentRouteName()=='payment.index' ? 'active' : '' }}">Publishers</a></li>
-		                    <li><a href="{{route('payment.create')}}" class="{{ Route::currentRouteName()=='payment.create' ? 'active' : '' }}">Create Publisher</a></li>
+						<ul class="sidebar-submenu" style="display:block;">
+		                    <li><a href="" class="">Publishers</a></li>
+		                    <li><a href="" class="">Create Publisher</a></li>
 		                </ul>
 					</li>
                     <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title {{ request()->routeIs(['payment.index','payment.create']) ? 'active' : '' }}" href="#">
+                        <a class="sidebar-link sidebar-title " href="#">
                             <i data-feather="dollar-sign"></i><span>Returns</span>
-                            <div class="according-menu"><i class="fa fa-angle-{{request()->routeIs(['payment.index','payment.create']) ? 'down' : 'right' }}"></i></div>
+                            <div class="according-menu"><i class="fa fa-angle-"></i></div>
                         </a>
-                        <ul class="sidebar-submenu" style="display: {{request()->routeIs(['payment.index','payment.create']) ? 'block' : 'none;' }};">
-                            <li><a href="{{route('payment.index')}}" class="{{ Route::currentRouteName()=='payment.index' ? 'active' : '' }}">Returns</a></li>
-                            <li><a href="{{route('payment.create')}}" class="{{ Route::currentRouteName()=='payment.create' ? 'active' : '' }}">Create Return</a></li>
+                        <ul class="sidebar-submenu" style="display: block;">
+                            <li><a href="" class="">Returns</a></li>
+                            <li><a href="" class="">Create Return</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title {{ request()->routeIs(['payment.index','payment.create']) ? 'active' : '' }}" href="#">
+                        <a class="sidebar-link sidebar-title " href="#">
                             <i data-feather="dollar-sign"></i><span>Purchases</span>
-                            <div class="according-menu"><i class="fa fa-angle-{{request()->routeIs(['payment.index','payment.create']) ? 'down' : 'right' }}"></i></div>
+                            <div class="according-menu"><i class="fa fa-angle-"></i></div>
                         </a>
-                        <ul class="sidebar-submenu" style="display: {{request()->routeIs(['payment.index','payment.create']) ? 'block' : 'none;' }};">
-                            <li><a href="{{route('payment.index')}}" class="{{ Route::currentRouteName()=='payment.index' ? 'active' : '' }}">Purchases</a></li>
-                            <li><a href="{{route('payment.create')}}" class="{{ Route::currentRouteName()=='payment.create' ? 'active' : '' }}">Create Purchase</a></li>
+                        <ul class="sidebar-submenu" style="display: block;">
+                            <li><a href="" class="">Purchases</a></li>
+                            <li><a href="" class="">Create Purchase</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-main-title">
@@ -84,7 +87,7 @@
 							<h6>Others</h6>
 						</div>
 					</li>
-                    <li class="sidebar-list">
+                    {{-- <li class="sidebar-list">
 						<a class="sidebar-link sidebar-title {{ request()->routeIs(['customer.index','customer.create']) ? 'active' : '' }}" href="#">
 							<i data-feather="users"></i><span>Reports</span>
 							<div class="according-menu"><i class="fa fa-angle-{{request()->routeIs(['customer.index','customer.create']) ? 'down' : 'right' }}"></i></div>
@@ -103,7 +106,7 @@
 		                    <li><a href="{{route('purchaser.index')}}" class="{{ Route::currentRouteName()=='purchaser.index' ? 'active' : '' }}">Settings</a></li>
 		                    <li><a href="{{route('purchaser.create')}}" class="{{ Route::currentRouteName()=='purchaser.create' ? 'active' : '' }}">Create Purchaser</a></li>
 		                </ul>
-					</li>
+					</li> --}}
 
 
 

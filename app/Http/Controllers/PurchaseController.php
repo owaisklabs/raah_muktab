@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Purchase;
-use App\services\purchase\PurchaseService;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
@@ -13,15 +12,9 @@ class PurchaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    private PurchaseService $purchase;
-    public function __construct(PurchaseService $purchase)
-    {
-        $this->purchase = $purchase;
-    }
     public function index()
     {
-        $data['rows'] = $this->purchase->dataTable();
-        return view('purchase.index',$data);
+        //
     }
 
     /**
@@ -31,8 +24,7 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        // dd("create");
-        return view('purchase.create');
+        //
     }
 
     /**
@@ -43,7 +35,7 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        $this->purchase->store($request);
+        //
     }
 
     /**
@@ -63,9 +55,9 @@ class PurchaseController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Purchase $purchase)
     {
-        return view('purchase.update');
+        //
     }
 
     /**

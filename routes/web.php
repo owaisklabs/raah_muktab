@@ -1,18 +1,8 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ItemController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\PurchaseController;
-use App\Http\Controllers\PurchaserController;
-use App\Http\Controllers\SaleController;
-use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -29,13 +19,7 @@ Route::post('user-login',[AuthenticationController::class,'login']);
 Route::group(['middleware' => ['auth']], function () {
     Route::prefix('dashboard')->group(function(){
         Route::get('/',[DashboardController::class,'index'])->name('dashboard');
-        Route::resource('sales',SaleController::class);
-        Route::resource('purchase',PurchaseController::class);
-        Route::resource('payment',PaymentController::class);
-        Route::resource('customer',CustomerController::class);
-        Route::resource('purchaser',PurchaserController::class);
-        Route::resource('supplier',SupplierController::class);
-        Route::resource('items',ItemController::class);
+        
     });
 });
 Auth::routes();
