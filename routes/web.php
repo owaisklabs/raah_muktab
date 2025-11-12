@@ -19,7 +19,9 @@ Route::post('user-login',[AuthenticationController::class,'login']);
 Route::group(['middleware' => ['auth']], function () {
     Route::prefix('dashboard')->group(function(){
         Route::get('/',[DashboardController::class,'index'])->name('dashboard');
-        
+        Route::resource('author',\App\Http\Controllers\AuthorController::class);
+        Route::resource('publisher',\App\Http\Controllers\PublisherController::class);
+
     });
 });
 Auth::routes();
@@ -73,7 +75,7 @@ Route::prefix('ui')->group(function(){
     });
 
     Route::prefix('project')->group(function () {
-        Route::view('projects', 'project.projects')->name('projects');
+        Route::view('projects', 'ui.project.projects')->name('projects');
         Route::view('projectcreate', 'project.projectcreate')->name('projectcreate');
     });
 

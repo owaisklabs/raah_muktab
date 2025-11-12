@@ -14,7 +14,7 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        //
+        return view('publisher.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        //
+        return view('publisher.create');
     }
 
     /**

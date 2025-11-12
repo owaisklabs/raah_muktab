@@ -1,22 +1,21 @@
-@extends('ui.layouts.simple.master')
-@section('title', 'Edit Profile')
+<?php $__env->startSection('title', 'Edit Profile'); ?>
 
-@section('css')
-@endsection
+<?php $__env->startSection('css'); ?>
+<?php $__env->stopSection(); ?>
 
-@section('style')
-@endsection
+<?php $__env->startSection('style'); ?>
+<?php $__env->stopSection(); ?>
 
-@section('breadcrumb-title')
+<?php $__env->startSection('breadcrumb-title'); ?>
 <h3>Edit Profile</h3>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('breadcrumb-items')
+<?php $__env->startSection('breadcrumb-items'); ?>
 <li class="breadcrumb-item">Users</li>
 <li class="breadcrumb-item active">Edit Profile</li>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="container-fluid">
 	<div class="edit-profile">
 		<div class="row">
@@ -31,7 +30,7 @@
 							<div class="row mb-2">
 								<div class="profile-title">
 									<div class="media">
-										<img class="img-70 rounded-circle" alt="" src="{{ asset('assets/images/user/7.jpg')}}">
+										<img class="img-70 rounded-circle" alt="" src="<?php echo e(asset('assets/images/user/7.jpg')); ?>">
 										<div class="media-body">
 											<h3 class="mb-1">MARK JECNO</h3>
 											<p>DESIGNER</p>
@@ -204,8 +203,10 @@
 		</div>
 	</div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('ui.layouts.simple.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\wamp64\www\raah_muktab\resources\views/ui/apps/edit-profile.blade.php ENDPATH**/ ?>

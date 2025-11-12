@@ -31,7 +31,7 @@ class CreateBooksTable extends Migration
                 $table->timestamps();
             });
         }
-        
+
     }
 
     /**
