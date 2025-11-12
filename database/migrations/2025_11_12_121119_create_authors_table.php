@@ -13,10 +13,15 @@ class CreateAuthorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('authors', function (Blueprint $table) {
+         if (!Schema::hasTable('authors')) {
+            Schema::create('authors', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 255);
+            $table->text('bio')->nullable();
             $table->timestamps();
         });
+         }
+        
     }
 
     /**

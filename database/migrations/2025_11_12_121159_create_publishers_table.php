@@ -13,10 +13,16 @@ class CreatePublishersTable extends Migration
      */
     public function up()
     {
-        Schema::create('publishers', function (Blueprint $table) {
+         if (!Schema::hasTable('publishers')) {
+            Schema::create('publishers', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 255);
+            $table->string('contact', 255)->nullable();
+            $table->text('address')->nullable();
             $table->timestamps();
         });
+         }
+        
     }
 
     /**

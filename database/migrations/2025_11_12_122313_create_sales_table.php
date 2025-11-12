@@ -13,10 +13,20 @@ class CreateSalesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sales', function (Blueprint $table) {
+         if (!Schema::hasTable('sales')) {
+            Schema::create('sales', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('customer_id');
+            $table->string('invoice_no', 128)->unique();
+            $table->dateTime('sale_date');
+            $table->decimal('total_amount', 12, 2)->default(0.00);
+            $table->decimal('paid_amount', 12, 2)->default(0.00);
+            $table->enum('status', ['open', 'paid', 'refunded', 'cancelled'])->default('open');
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
+         }
+        
     }
 
     /**

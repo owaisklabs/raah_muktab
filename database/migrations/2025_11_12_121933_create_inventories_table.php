@@ -13,10 +13,17 @@ class CreateInventoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventories', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('inventories')) {
+            Schema::create('inventories', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
+                $table->integer('quantity')->default(0);
+                $table->string('location', 128)->nullable();
+                $table->integer('reorder_level')->nullable();
+                $table->timestamps();
+                
+            });
+        }
     }
 
     /**

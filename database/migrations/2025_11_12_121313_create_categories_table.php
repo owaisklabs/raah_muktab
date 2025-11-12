@@ -13,10 +13,19 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('categories')) {
+            Schema::create('categories', function (Blueprint $table) {
+                $table->id();
+                $table->string('name', 128)->unique();
+                $table->string('slug', 128)->nullable();
+                $table->foreignId('parent_id')->nullable()
+                    ->constrained('categories')
+                    ->nullOnDelete();
+                $table->timestamps();
+            });
+        }
+        
+        
     }
 
     /**

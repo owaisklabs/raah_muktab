@@ -13,10 +13,19 @@ class CreatePriceHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('price_histories', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('price_histories')) {
+             Schema::create('price_histories', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
+                $table->decimal('old_price', 12, 2)->nullable();
+                $table->decimal('new_price', 12, 2)->nullable();
+                $table->timestamp('changed_at')->useCurrent();
+                $table->foreignId('changed_by')->nullable()->constrained('users')->nullOnDelete();
+                $table->string('note', 255)->nullable();
+                $table->index('book_id', 'idx_price_hist_book');
+            });
+        }
+       
     }
 
     /**

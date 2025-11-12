@@ -13,10 +13,18 @@ class CreateSaleItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sale_items', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+         if (!Schema::hasTable('sale_items')) {
+            Schema::create('sale_items', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('sale_id')->constrained('sales')->cascadeOnDelete();
+                $table->foreignId('book_id')->constrained('books')->restrictOnDelete();
+                $table->integer('quantity');
+                $table->decimal('unit_price', 12, 2);
+                $table->decimal('line_total', 14, 2);
+                $table->timestamps();
         });
+         }
+        
     }
 
     /**

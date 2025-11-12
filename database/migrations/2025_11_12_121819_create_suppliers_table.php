@@ -13,10 +13,17 @@ class CreateSuppliersTable extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('suppliers')) {
         Schema::create('suppliers', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+                $table->id();
+                $table->string('name', 255);
+                $table->string('contact_person', 255)->nullable();
+                $table->string('phone', 64)->nullable();
+                $table->string('email', 255)->nullable();
+                $table->text('address')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
