@@ -1,25 +1,24 @@
-@extends('ui.layouts.simple.master')
-@section('title', 'Bootstrap Border Table')
+<?php $__env->startSection('title', 'Bootstrap Border Table'); ?>
 
-@section('css')
-@endsection
+<?php $__env->startSection('css'); ?>
+<?php $__env->stopSection(); ?>
 
-@section('style')
-@endsection
+<?php $__env->startSection('style'); ?>
+<?php $__env->stopSection(); ?>
 
-@section('breadcrumb-title')
+<?php $__env->startSection('breadcrumb-title'); ?>
     <h3>Create Author</h3>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
 
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="card">
 
         <div class="card-body">
-            <form class="needs-validation" novalidate="" action="{{route('author.store')}}" METHOD="post">
-                @csrf
+            <form class="needs-validation" novalidate="" action="<?php echo e(route('author.store')); ?>" METHOD="post">
+                <?php echo csrf_field(); ?>
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Name</label>
@@ -36,4 +35,6 @@
             </form>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('ui.layouts.simple.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\raah_muktab\resources\views/author/create.blade.php ENDPATH**/ ?>

@@ -14,7 +14,8 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        return view('publisher.index');
+        $publishers = Publisher::latest()->paginate(25);
+        return view('publisher.index',compact('publishers'));
     }
 
     /**
@@ -35,7 +36,9 @@ class PublisherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        Publisher::create($request->all());
+        return redirect()->route('publisher.index');
     }
 
     /**
@@ -57,7 +60,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        //
+        return view('publisher.update',compact('publisher'));
     }
 
     /**
@@ -69,7 +72,8 @@ class PublisherController extends Controller
      */
     public function update(Request $request, Publisher $publisher)
     {
-        //
+        $publisher->update($request->all());
+        return redirect()->route('publisher.index');
     }
 
     /**
@@ -80,6 +84,8 @@ class PublisherController extends Controller
      */
     public function destroy(Publisher $publisher)
     {
-        //
+        $publisher->delete();
+
+        return redirect()->route('publisher.index');
     }
 }

@@ -14,7 +14,8 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return view('author.index');
+        $authors = Author::latest()->paginate(25);
+        return view('author.index',compact('authors'));
     }
 
     /**
@@ -35,7 +36,8 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Author::create($request->all());
+        return redirect()->route('author.index');
     }
 
     /**
@@ -57,7 +59,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        //
+        return view('author.update',compact('author'));
     }
 
     /**
@@ -69,7 +71,8 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        $author->update($request->all());
+        return redirect()->route('author.index');
     }
 
     /**
@@ -80,6 +83,8 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
+
+        return redirect()->route('author.index');
     }
 }

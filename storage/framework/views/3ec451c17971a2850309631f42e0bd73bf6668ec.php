@@ -1,23 +1,22 @@
-@extends('ui.layouts.simple.master')
-@section('title', 'Bootstrap Border Table')
+<?php $__env->startSection('title', 'Bootstrap Border Table'); ?>
 
-@section('css')
-@endsection
+<?php $__env->startSection('css'); ?>
+<?php $__env->stopSection(); ?>
 
-@section('style')
-@endsection
+<?php $__env->startSection('style'); ?>
+<?php $__env->stopSection(); ?>
 
-@section('breadcrumb-title')
+<?php $__env->startSection('breadcrumb-title'); ?>
 <h3>Suppliers</h3>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('breadcrumb-items')
+<?php $__env->startSection('breadcrumb-items'); ?>
 <li class="breadcrumb-item">Suppliers</li>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="container-fluid">
-    {{-- <div class="row"> --}}
+    
         <form action="#" class="row" method="GET">
             <div class="col-md-3 mb-3">
                 <label for="validationCustom01">Query</label>
@@ -36,7 +35,7 @@
                 <button class="btn btn-pill btn-primary btn-air-primary btn-lg" type="submit">Search</button>
             </div>
         </form>
-    {{-- </div> --}}
+    
 	<div class="row">
 
 		<div class="col-sm-12">
@@ -55,45 +54,48 @@
 							</tr>
 						</thead>
 						<tbody>
-                        @foreach($suppliers as $item)
+                        <?php $__currentLoopData = $suppliers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
-                                <th scope="row">{{$item->id}}</th>
-                                <td>{{$item->name}}</td>
-                                <td>{{$item->contact_person}}</td>
-                                <td>{{$item->phone}}</td>
-                                <td>{{$item->email}}</td>
-                                <td>{{$item->created_at}}</td>
+                                <th scope="row"><?php echo e($item->id); ?></th>
+                                <td><?php echo e($item->name); ?></td>
+                                <td><?php echo e($item->contact_person); ?></td>
+                                <td><?php echo e($item->phone); ?></td>
+                                <td><?php echo e($item->email); ?></td>
+                                <td><?php echo e($item->created_at); ?></td>
                                 <td class="d-flex align-items-center gap-2">
 
-                                    {{-- Delete --}}
-                                    <form action="{{ route('supplier.destroy', $item->id) }}" method="POST"
+                                    
+                                    <form action="<?php echo e(route('supplier.destroy', $item->id)); ?>" method="POST"
                                           onsubmit="return confirm('Are you sure you want to delete this supplier?');" class="m-0 p-0">
-                                        @csrf
-                                        @method('DELETE')
+                                        <?php echo csrf_field(); ?>
+                                        <?php echo method_field('DELETE'); ?>
                                         <button type="submit" class="btn btn-sm btn-danger p-1 d-flex align-items-center justify-content-center">
                                             <i data-feather="trash-2"></i>
                                         </button>
                                     </form>
 
-                                    {{-- Edit --}}
-                                    <a href="{{ route('supplier.edit', $item->id) }}" class="btn btn-sm btn-primary p-1 d-flex align-items-center justify-content-center">
+                                    
+                                    <a href="<?php echo e(route('supplier.edit', $item->id)); ?>" class="btn btn-sm btn-primary p-1 d-flex align-items-center justify-content-center">
                                         <i data-feather="edit"></i>
                                     </a>
 
                                 </td>
                             </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 
 
 						</tbody>
 					</table>
 				</div>
-            {{ $suppliers->links('pagination::bootstrap-5')}}
+            <?php echo e($suppliers->links('pagination::bootstrap-5')); ?>
+
 		</div>
 	</div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
-@endsection
+<?php $__env->startSection('script'); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('ui.layouts.simple.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\raah_muktab\resources\views/supplier/index.blade.php ENDPATH**/ ?>

@@ -14,7 +14,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        $suppliers = Supplier::latest()->paginate(25);
+        return view('supplier.index',compact('suppliers'));
     }
 
     /**
@@ -24,7 +25,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return  view('supplier.create');
     }
 
     /**
@@ -35,7 +36,8 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Supplier::create($request->all());
+        return redirect()->route('supplier.index');
     }
 
     /**
@@ -57,7 +59,7 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        //
+        return view('supplier.update',compact('supplier'));
     }
 
     /**
@@ -69,7 +71,8 @@ class SupplierController extends Controller
      */
     public function update(Request $request, Supplier $supplier)
     {
-        //
+        $supplier->update($request->all());
+        return redirect()->route('supplier.index');
     }
 
     /**
@@ -80,6 +83,7 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
-        //
+        $supplier->delete();
+        return redirect()->route('supplier.index');
     }
 }

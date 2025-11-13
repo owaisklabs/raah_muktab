@@ -21,6 +21,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/',[DashboardController::class,'index'])->name('dashboard');
         Route::resource('author',\App\Http\Controllers\AuthorController::class);
         Route::resource('publisher',\App\Http\Controllers\PublisherController::class);
+        Route::resource('supplier',\App\Http\Controllers\SupplierController::class);
 
     });
 });

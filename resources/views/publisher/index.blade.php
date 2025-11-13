@@ -8,7 +8,7 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h3>Authors</h3>
+    <h3>Publishers</h3>
 @endsection
 
 {{--@section('breadcrumb-items')--}}
@@ -48,27 +48,47 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Bio</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">Book Count</th>
                             <th scope="col">Create At</th>
 
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody>
+                        @foreach($publishers as $item)
+
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Alexander</td>
-                            <td>Orton</td>
-                            <td>Admin</td>
-                            <td>
-                                <a href=""> <i data-feather="trash-2"></i></a> &nbsp;
-                                <a href=""> <i data-feather="edit"></i></a>
+                            <th scope="row">{{$item->id}}</th>
+                            <td>{{$item->name}}</td>
+                            <td>{{$item->contact}}</td>
+                            <td>0</td>
+                            <td>{{$item->created_at}}</td>
+                            <td class="d-flex align-items-center gap-2">
+
+                                {{-- Delete --}}
+                                <form action="{{ route('publisher.destroy', $item->id) }}" method="POST"
+                                      onsubmit="return confirm('Are you sure you want to delete this publisher?');" class="m-0 p-0">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger p-1 d-flex align-items-center justify-content-center">
+                                        <i data-feather="trash-2"></i>
+                                    </button>
+                                </form>
+
+                                {{-- Edit --}}
+                                <a href="{{ route('publisher.edit', $item->id) }}" class="btn btn-sm btn-primary p-1 d-flex align-items-center justify-content-center">
+                                    <i data-feather="edit"></i>
+                                </a>
+
                             </td>
                         </tr>
+                        @endforeach
 
                         </tbody>
                     </table>
                 </div>
+                {{ $publishers->links('pagination::bootstrap-5')}}
             </div>
         </div>
     </div>
