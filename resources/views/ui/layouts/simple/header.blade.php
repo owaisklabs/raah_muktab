@@ -47,8 +47,8 @@
             <form action="{{route('logout')}}" method="POST">
                 @csrf
                 <li>
-                    <a href="#"><i data-feather="log-in"></i>
-                        <button type="submit">
+                    <a href="#">
+                        <button type="submit" class="btn btn-warning">
                         <span>Log out</span>
                     </button>
                     </a>

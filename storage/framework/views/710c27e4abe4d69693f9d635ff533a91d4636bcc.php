@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('title', 'Bootstrap Border Table'); ?>
 
 <?php $__env->startSection('css'); ?>
@@ -8,7 +7,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('breadcrumb-title'); ?>
-    <h3>Authors</h3>
+    <h3>Books</h3>
 <?php $__env->stopSection(); ?>
 
 
@@ -56,7 +55,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php $__currentLoopData = $authors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php $__currentLoopData = $books; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                         <tr>
                             <th scope="row"><?php echo e($item->id); ?></th>
@@ -67,8 +66,8 @@
                             <td class="d-flex align-items-center gap-2">
 
                                 
-                                <form action="<?php echo e(route('author.destroy', $item->id)); ?>" method="POST"
-                                      onsubmit="return confirm('Are you sure you want to delete this author?');" class="m-0 p-0">
+                                <form action="<?php echo e(route('book.destroy', $item->id)); ?>" method="POST"
+                                      onsubmit="return confirm('Are you sure you want to delete this book?');" class="m-0 p-0">
                                     <?php echo csrf_field(); ?>
                                     <?php echo method_field('DELETE'); ?>
                                     <button type="submit" class="btn btn-sm btn-danger p-1 d-flex align-items-center justify-content-center">
@@ -77,7 +76,7 @@
                                 </form>
 
                                 
-                                <a href="<?php echo e(route('author.edit', $item->id)); ?>" class="btn btn-sm btn-primary p-1 d-flex align-items-center justify-content-center">
+                                <a href="<?php echo e(route('book.edit', $item->id)); ?>" class="btn btn-sm btn-primary p-1 d-flex align-items-center justify-content-center">
                                     <i data-feather="edit"></i>
                                 </a>
 
@@ -86,7 +85,7 @@
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
-                    <?php echo e($authors->links('pagination::bootstrap-5')); ?>
+                    <?php echo e($books->links('pagination::bootstrap-5')); ?>
 
                 </div>
             </div>
@@ -97,4 +96,4 @@
 <?php $__env->startSection('script'); ?>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('ui.layouts.simple.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\wamp64\www\raah_muktab\resources\views/author/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('ui.layouts.simple.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\wamp64\www\raah_muktab\resources\views/book/index.blade.php ENDPATH**/ ?>

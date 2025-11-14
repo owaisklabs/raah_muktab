@@ -1,3 +1,4 @@
+
 <?php $__env->startSection('title', 'Bootstrap Border Table'); ?>
 
 <?php $__env->startSection('css'); ?>
@@ -7,7 +8,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('breadcrumb-title'); ?>
-    <h3>Create Author</h3>
+    <h3>Create Publisher</h3>
 
 
 <?php $__env->stopSection(); ?>
@@ -17,20 +18,24 @@
     <div class="card">
 
         <div class="card-body">
-            <form class="needs-validation" novalidate="">
+            <form class="needs-validation" method="POST" action="<?php echo e(route('publisher.store')); ?>">
+                <?php echo csrf_field(); ?>
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Name</label>
-                        <input class="form-control" id="validationCustom01" type="text" placeholder="Name" required="" data-bs-original-title="" title="">
+                            <input class="form-control"  type="text" name="name" placeholder="Name" required="">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="validationCustom02">Bio</label>
-                        <input class="form-control" id="validationCustom02" type="text" placeholder="Bio" required="" data-bs-original-title="" title="">
+                        <label for="validationCustom02">Contact</label>
+                        <input class="form-control" type="text" name="contact" placeholder="Contact" >
+                    </div><div class="col-md-12 mb-3">
+                        <label for="validationCustom02">Address</label>
+                        <textarea class="form-control" name="address" id="" placeholder="Address" cols="30" rows="05"  ></textarea>
                     </div>
                 </div>
 
 
-                <button class="btn btn-primary" type="submit" data-bs-original-title="" title="">Create</button>
+                <button class="btn btn-primary" type="submit" title="">Create</button>
             </form>
         </div>
     </div>

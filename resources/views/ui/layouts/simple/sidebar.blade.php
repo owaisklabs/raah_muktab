@@ -39,49 +39,60 @@
                         </ul>
                     </li>
 					<li class="sidebar-list">
-						<a class="sidebar-link sidebar-title " href="#">
+						<a class="sidebar-link sidebar-title {{ request()->routeIs(['author.index','author.create']) ? 'active' : '' }}" href="#">
 							<i data-feather="shopping-bag"></i><span>Authors</span>
-							<div class="according-menu"><i class="fa fa-angle-"></i></div>
+							<div class="according-menu"><i class="fa fa-angle-{{request()->routeIs(['author.index','author.create']) ? 'down' : 'right' }}"></i></div>
 						</a>
 						{{-- {{request()->routeIs(['purchase.index','purchase.create'])  ? 'block' : 'none;' }} --}}
-						<ul class="sidebar-submenu" style="display: block;">
-		                    <li><a href="" class="">Authors</a></li>
-		                    <li><a href="" class="">Create Author</a></li>
+						<ul class="sidebar-submenu" style="display: {{request()->routeIs(['author.index','author.create'])  ? 'block' : 'none;' }};">
+		                    <li><a href="{{route('author.index')}}" class="{{ request()->routeIs(['author.index']) ? 'active' : '' }}">Authors</a></li>
+		                    <li><a href="{{route('author.create')}}" class="{{ request()->routeIs(['author.create']) ? 'active' : '' }}">Create Author</a></li>
 		                </ul>
 					</li>
 
 
 
                     <li class="sidebar-list">
-						<a class="sidebar-link sidebar-title" href="#">
+						<a class="sidebar-link sidebar-title {{ request()->routeIs(['publisher.index','publisher.create']) ? 'active' : '' }}" href="#">
 							<i data-feather="dollar-sign"></i><span>Publishers</span>
-							<div class="according-menu"><i class="fa fa-angle-"></i></div>
+							<div class="according-menu"><i class="fa fa-angle-{{request()->routeIs(['publisher.index','publisher.create']) ? 'down' : 'right' }}"></i></div>
 						</a>
-						<ul class="sidebar-submenu" style="display:block;">
-		                    <li><a href="" class="">Publishers</a></li>
-		                    <li><a href="" class="">Create Publisher</a></li>
+						<ul class="sidebar-submenu" style="display:{{request()->routeIs(['publisher.index','publisher.create'])  ? 'block' : 'none;' }};">
+		                    <li><a href="{{route('publisher.index')}}" class="{{ request()->routeIs(['publisher.index']) ? 'active' : '' }}">Publishers</a></li>
+		                    <li><a href="{{route('publisher.create')}}" class="{{ request()->routeIs(['publisher.create']) ? 'active' : '' }}">Create Publisher</a></li>
 		                </ul>
 					</li>
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title{{ request()->routeIs(['supplier.index','supplier.create']) ? 'active' : '' }} " href="#">
+                            <i data-feather="dollar-sign"></i><span>Supplier</span>
+                            <div class="according-menu"><i class="fa fa-angle-{{request()->routeIs(['supplier.index','supplier.create']) ? 'down' : 'right' }}"></i></div>
+                        </a>
+                        <ul class="sidebar-submenu" style="display: {{request()->routeIs(['supplier.index','supplier.create'])  ? 'block' : 'none;' }}">
+                            <li><a href="{{route('supplier.index')}}" class="{{ request()->routeIs(['supplier.index']) ? 'active' : '' }}">Suppliers</a></li>
+                            <li><a href="{{route('supplier.create')}}" class="{{ request()->routeIs(['supplier.create']) ? 'active' : '' }}">Create Supplier</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title{{ request()->routeIs(['book.index','book.create']) ? 'active' : '' }} " href="#">
+                            <i data-feather="dollar-sign"></i><span>Book</span>
+                            <div class="according-menu"><i class="fa fa-angle-{{request()->routeIs(['book.index','book.create']) ? 'down' : 'right' }}"></i></div>
+                        </a>
+                        <ul class="sidebar-submenu" style="display: {{request()->routeIs(['book.index','book.create'])  ? 'block' : 'none;' }}">
+                            <li><a href="{{route('book.index')}}" class="{{ request()->routeIs(['book.index']) ? 'active' : '' }}">Books</a></li>
+                            <li><a href="{{route('book.create')}}" class="{{ request()->routeIs(['book.create']) ? 'active' : '' }}">Create Book</a></li>
+                        </ul>
+                    </li>
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title " href="#">
                             <i data-feather="dollar-sign"></i><span>Returns</span>
                             <div class="according-menu"><i class="fa fa-angle-"></i></div>
                         </a>
-                        <ul class="sidebar-submenu" style="display: block;">
+                        <ul class="sidebar-submenu" style="display: none;">
                             <li><a href="" class="">Returns</a></li>
                             <li><a href="" class="">Create Return</a></li>
                         </ul>
                     </li>
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title " href="#">
-                            <i data-feather="dollar-sign"></i><span>Purchases</span>
-                            <div class="according-menu"><i class="fa fa-angle-"></i></div>
-                        </a>
-                        <ul class="sidebar-submenu" style="display: block;">
-                            <li><a href="" class="">Purchases</a></li>
-                            <li><a href="" class="">Create Purchase</a></li>
-                        </ul>
-                    </li>
+
                     <li class="sidebar-main-title">
 						<div>
 							<h6>Others</h6>

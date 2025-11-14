@@ -47,8 +47,8 @@
             <form action="<?php echo e(route('logout')); ?>" method="POST">
                 <?php echo csrf_field(); ?>
                 <li>
-                    <a href="#"><i data-feather="log-in"></i>
-                        <button type="submit">
+                    <a href="#">
+                        <button type="submit" class="btn btn-warning">
                         <span>Log out</span>
                     </button>
                     </a>

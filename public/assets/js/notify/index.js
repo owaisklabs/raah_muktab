@@ -12,5 +12,5 @@ var notify = $.notify('<i class="fa fa-bell-o"></i><strong>Loading</strong> Load
 });
 
 setTimeout(function() {
-    notify.update('message', '<i class="fa fa-bell-o"></i><strong>Welome</strong> to Company Name Portal.');
+    notify.update('message', '<i class="fa fa-bell-o"></i><strong>Welome</strong> to Muktab MusslehUddin  .');
 }, 300);

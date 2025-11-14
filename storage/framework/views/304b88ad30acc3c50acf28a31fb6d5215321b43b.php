@@ -1,3 +1,4 @@
+
 <?php $__env->startSection('title', 'Bootstrap Border Table'); ?>
 
 <?php $__env->startSection('css'); ?>
@@ -17,15 +18,16 @@
     <div class="card">
 
         <div class="card-body">
-            <form class="needs-validation" novalidate="">
+            <form class="needs-validation" novalidate="" action="<?php echo e(route('author.store')); ?>" METHOD="post">
+                <?php echo csrf_field(); ?>
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Name</label>
-                        <input class="form-control" id="validationCustom01" type="text" placeholder="Name" required="" data-bs-original-title="" title="">
+                        <input class="form-control" id="validationCustom01" type="text" name="name" placeholder="Name" required="" data-bs-original-title="" title="">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom02">Bio</label>
-                        <input class="form-control" id="validationCustom02" type="text" placeholder="Bio" required="" data-bs-original-title="" title="">
+                        <input class="form-control" id="validationCustom02" type="text" name="bio" placeholder="Bio" required="" data-bs-original-title="" title="">
                     </div>
                 </div>
 
