@@ -1,25 +1,24 @@
-@extends('ui.layouts.simple.master')
-@section('title', 'Bootstrap Border Table')
+<?php $__env->startSection('title', 'Bootstrap Border Table'); ?>
 
-@section('css')
-@endsection
+<?php $__env->startSection('css'); ?>
+<?php $__env->stopSection(); ?>
 
-@section('style')
-@endsection
+<?php $__env->startSection('style'); ?>
+<?php $__env->stopSection(); ?>
 
-@section('breadcrumb-title')
+<?php $__env->startSection('breadcrumb-title'); ?>
     <h3>Create Book</h3>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
 
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="card">
 
         <div class="card-body">
-            <form class="needs-validation"  action="{{route('book.store')}}" METHOD="post" enctype="multipart/form-data">
-                @csrf
+            <form class="needs-validation"  action="<?php echo e(route('book.store')); ?>" METHOD="post" enctype="multipart/form-data">
+                <?php echo csrf_field(); ?>
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="sku">SKU <span class="text-danger">*</span></label>
@@ -42,9 +41,9 @@
 
                             <select id=" publisher_id" required class="form-control " name="publisher_id">
                                 <option value="">Select Publisher</option>
-                                @foreach($publishers as $publisher)
-                                    <option value="{{$publisher->id}}"  >{{$publisher->name}}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $publishers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $publisher): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($publisher->id); ?>"  ><?php echo e($publisher->name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
 
 
@@ -54,9 +53,9 @@
 
                             <select id=" author_id" required class="form-control " name="author_id[]">
                                 <option value="">Select Publisher</option>
-                                @foreach($authors as $author)
-                                    <option value="{{$author->id}}"  >{{$author->name}}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $authors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $author): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($author->id); ?>"  ><?php echo e($author->name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                     </div>
                     <div class="col-md-3 mb-3">
@@ -96,16 +95,16 @@
             </form>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
     <style>
 
     </style>
 
 
-@section('script')
-    <script src="{{asset('assets/js/select2/select2.full.min.js')}}"></script>
-    <script src="{{asset('assets/js/select2/select2-custom.js')}}"></script>
+<?php $__env->startSection('script'); ?>
+    <script src="<?php echo e(asset('assets/js/select2/select2.full.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/select2/select2-custom.js')); ?>"></script>
     <script>
         // $(document).ready(function() {
         //     $('.select2').select2({
@@ -123,7 +122,9 @@
             }
         });
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
 
 
+
+<?php echo $__env->make('ui.layouts.simple.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\raah_muktab\resources\views/book/create.blade.php ENDPATH**/ ?>

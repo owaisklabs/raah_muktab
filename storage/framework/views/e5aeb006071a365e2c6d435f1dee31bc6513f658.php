@@ -9,7 +9,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="<?php echo e(asset('assets/images/favicon.png')); ?>" type="image/x-icon">
     <link rel="shortcut icon" href="<?php echo e(asset('assets/images/favicon.png')); ?>" type="image/x-icon">
-    <title>Cuba - Premium Admin Template</title>
+    <title> Muktab MusslehUddin | Online Book ERP</title>
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap" rel="stylesheet">
@@ -77,6 +77,7 @@
             $(".sidebar-submenu" ).css( "display", "block" );
       }
     </script>
+
   </body>
 </html>
 <?php /**PATH C:\laragon\www\raah_muktab\resources\views/ui/layouts/simple/master.blade.php ENDPATH**/ ?>

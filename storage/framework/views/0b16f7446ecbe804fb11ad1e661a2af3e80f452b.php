@@ -11,9 +11,10 @@
 <script src="<?php echo e(asset('assets/js/config.js')); ?>"></script>
 <!-- Plugins JS start-->
 <script id="menu" src="<?php echo e(asset('assets/js/sidebar-menu.js')); ?>"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <?php echo $__env->yieldContent('script'); ?>
 
-<?php if(Route::current()->getName() != 'popover'): ?> 
+<?php if(Route::current()->getName() != 'popover'): ?>
 	<script src="<?php echo e(asset('assets/js/tooltip-init.js')); ?>"></script>
 <?php endif; ?>
 
@@ -21,6 +22,7 @@
 <!-- Theme js-->
 <script src="<?php echo e(asset('assets/js/script.js')); ?>"></script>
 <script src="<?php echo e(asset('assets/js/theme-customizer/customizer.js')); ?>"></script>
+
 
 
 <?php /**PATH C:\laragon\www\raah_muktab\resources\views/ui/layouts/simple/script.blade.php ENDPATH**/ ?>
