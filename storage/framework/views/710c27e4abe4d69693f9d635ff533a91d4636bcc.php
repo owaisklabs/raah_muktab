@@ -19,20 +19,24 @@
     <div class="container-fluid">
         
         <form action="#" class="row" method="GET">
-            <div class="col-md-3 mb-3">
-                <label for="validationCustom01">Query</label>
-                <input class="form-control" name="query" type="text" placeholder="First name" required="">
-                <div class="valid-feedback">Looks good!</div>
+            <div class="col-3 mb-3">
+                <label for="validationCustom01">Bar Code</label>
+                <input class="form-control" name="query" type="text" placeholder="Bar Code" required="">
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col-3 mb-3">
+                <label for="validationCustom01">Title</label>
+                <input class="form-control" name="query" type="text" placeholder="Tittle" required="">
+            </div>
+
+            <div class="col-2 mb-3">
                 <label for="validationCustom02">From Date</label>
                 <input class="form-control" name="from_date" id="validationCustom02" type="date"  >
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col-2 mb-3">
                 <label for="validationCustom02">To Date</label>
                 <input class="form-control" name="to_date" id="validationCustom02" type="date"  >
             </div>
-            <div class="col-md-3 mb-3" style="margin-top: 25px;">
+            <div class="col-2 mb-3" style="margin-top: 25px;">
                 <button class="btn btn-pill btn-primary btn-air-primary btn-lg" type="submit">Search</button>
             </div>
         </form>
@@ -42,27 +46,40 @@
             <div class="col-sm-12">
 
                 <div class="table-responsive">
-                    <table class="table table-border-vertical " style="background-color: white;">
+                    <table class="table table-border-vertical " >
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Bio</th>
-                            <th scope="col">Total Books</th>
-                            <th scope="col">Create At</th>
-
+                            <th scope="col">SKU</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Publisher</th>
+                            <th scope="col">Authors</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Cover</th>
+                            <th scope="col">Cost Price</th>
+                            <th scope="col">Sell price</th>
+                            <th scope="col">Language</th>
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php $__currentLoopData = $books; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-
                         <tr>
                             <th scope="row"><?php echo e($item->id); ?></th>
-                            <td><?php echo e($item->name); ?></td>
-                            <td><?php echo e($item->bio); ?></td>
+                            <td><?php echo e($item->sku); ?></td>
+                            <td><?php echo e($item->title); ?></td>
+                            <td><strong><?php echo e($item->publisher->name); ?> </strong></td>
+                            <td>
+                                <?php $__currentLoopData = $item->authors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $author): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <p><strong> <?php echo e($author->name); ?> </strong></p>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                            </td>
                             <td>0</td>
-                            <td><?php echo e($item->created_at); ?></td>
+                            <td><img src="<?php echo e(asset('storage/' . $item->cover_image)); ?>" style="height: 150px;" alt="<?php echo e($item->title); ?>"></td>
+                            <td><?php echo e($item->cost_price); ?></td>
+                            <td><?php echo e($item->sell_price); ?></td>
+                            <td><?php echo e($item->language); ?></td>
                             <td class="d-flex align-items-center gap-2">
 
                                 

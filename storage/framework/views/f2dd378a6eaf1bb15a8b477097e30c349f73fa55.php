@@ -77,6 +77,7 @@
             $(".sidebar-submenu" ).css( "display", "block" );
       }
     </script>
+
   </body>
 </html>
 <?php /**PATH D:\wamp64\www\raah_muktab\resources\views/ui/layouts/simple/master.blade.php ENDPATH**/ ?>

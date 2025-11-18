@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('title', 'Bootstrap Border Table'); ?>
 
 <?php $__env->startSection('css'); ?>
@@ -40,24 +39,28 @@
                     <div class="col-md-3 mb-3">
                         <label for="publisher_id">Publisher <span class="text-danger">*</span></label>
 
-                            <select id=" publisher_id" required class="form-control " name="publisher_id">
-                                <option value="">Select Publisher</option>
-                                <?php $__currentLoopData = $publishers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $publisher): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option value="<?php echo e($publisher->id); ?>"  ><?php echo e($publisher->name); ?></option>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            </select>
+                        <select id=" publisher_id" required class="form-control " name="publisher_id">
+                            <option value="">Select Publisher</option>
+                            <option value="">Select Publisher</option>
+                            <option value="">Select Publisher</option>
+                            <option value="">Select Publisher</option>
+                            <option value="">Select Publisher</option>
+                            <option value="">Select Publisher</option>
+
+                        </select>
 
 
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="author_id">Author <span class="text-danger">*</span></label>
 
-                            <select id=" author_id" required class="form-control " name="author_id[]">
-                                <option value="">Select Publisher</option>
-                                <?php $__currentLoopData = $authors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $author): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option value="<?php echo e($author->id); ?>"  ><?php echo e($author->name); ?></option>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            </select>
+                        <select id=" author_id" required class="form-control " name="author_id[]">
+                            <option value="">Select Publisher</option>
+                            <option value="">Select Publisher</option>
+                            <option value="">Select Publisher</option>
+                            <option value="">Select Publisher</option>
+                            <option value="">Select Publisher</option>
+                        </select>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="published_at">Published At</label>
@@ -98,9 +101,9 @@
     </div>
 <?php $__env->stopSection(); ?>
 
-    <style>
+<style>
 
-    </style>
+</style>
 
 
 <?php $__env->startSection('script'); ?>
@@ -128,4 +131,4 @@
 
 
 
-<?php echo $__env->make('ui.layouts.simple.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\wamp64\www\raah_muktab\resources\views/book/create.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('ui.layouts.simple.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\wamp64\www\raah_muktab\resources\views/purchase/create.blade.php ENDPATH**/ ?>

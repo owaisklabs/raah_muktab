@@ -20,16 +20,13 @@
                                 <i data-feather="git-pull-request"> </i><span><?php echo e(trans('lang.Dashboard')); ?></span>
                             </a>
                     </li>
+
                     
-                    <li class="sidebar-main-title">
-						<div>
-							<h6 class="lan-1"><?php echo e(trans('lang.General')); ?> </h6>
-						</div>
-					</li>
+
                     <li class="sidebar-list">
 						
                         <a class="sidebar-link sidebar-title " href="#">
-                            <i data-feather="shopping-cart"></i><span>Sales</span>
+                            <i data-feather="shopping-bag"></i><span>Sales</span>
 							
                             <div class="according-menu"><i class="fa fa-angle-"></i></div>
                         </a>
@@ -40,7 +37,7 @@
                     </li>
 					<li class="sidebar-list">
 						<a class="sidebar-link sidebar-title <?php echo e(request()->routeIs(['author.index','author.create']) ? 'active' : ''); ?>" href="#">
-							<i data-feather="shopping-bag"></i><span>Authors</span>
+							<i data-feather="feather"></i><span>Authors</span>
 							<div class="according-menu"><i class="fa fa-angle-<?php echo e(request()->routeIs(['author.index','author.create']) ? 'down' : 'right'); ?>"></i></div>
 						</a>
 						
@@ -54,7 +51,7 @@
 
                     <li class="sidebar-list">
 						<a class="sidebar-link sidebar-title <?php echo e(request()->routeIs(['publisher.index','publisher.create']) ? 'active' : ''); ?>" href="#">
-							<i data-feather="dollar-sign"></i><span>Publishers</span>
+							<i data-feather="layers"></i><span>Publishers</span>
 							<div class="according-menu"><i class="fa fa-angle-<?php echo e(request()->routeIs(['publisher.index','publisher.create']) ? 'down' : 'right'); ?>"></i></div>
 						</a>
 						<ul class="sidebar-submenu" style="display:<?php echo e(request()->routeIs(['publisher.index','publisher.create'])  ? 'block' : 'none;'); ?>;">
@@ -64,7 +61,7 @@
 					</li>
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title<?php echo e(request()->routeIs(['supplier.index','supplier.create']) ? 'active' : ''); ?> " href="#">
-                            <i data-feather="dollar-sign"></i><span>Supplier</span>
+                            <i data-feather="truck"></i><span>Supplier</span>
                             <div class="according-menu"><i class="fa fa-angle-<?php echo e(request()->routeIs(['supplier.index','supplier.create']) ? 'down' : 'right'); ?>"></i></div>
                         </a>
                         <ul class="sidebar-submenu" style="display: <?php echo e(request()->routeIs(['supplier.index','supplier.create'])  ? 'block' : 'none;'); ?>">
@@ -74,7 +71,7 @@
                     </li>
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title<?php echo e(request()->routeIs(['book.index','book.create']) ? 'active' : ''); ?> " href="#">
-                            <i data-feather="dollar-sign"></i><span>Book</span>
+                            <i data-feather="book-open"></i><span>Book</span>
                             <div class="according-menu"><i class="fa fa-angle-<?php echo e(request()->routeIs(['book.index','book.create']) ? 'down' : 'right'); ?>"></i></div>
                         </a>
                         <ul class="sidebar-submenu" style="display: <?php echo e(request()->routeIs(['book.index','book.create'])  ? 'block' : 'none;'); ?>">
@@ -83,8 +80,18 @@
                         </ul>
                     </li>
                     <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title<?php echo e(request()->routeIs(['purchase.index','purchase.create']) ? 'active' : ''); ?> " href="#">
+                            <i data-feather="shopping-cart"></i><span>Purchase</span>
+                            <div class="according-menu"><i class="fa fa-angle-<?php echo e(request()->routeIs(['purchase.index','purchase.create']) ? 'down' : 'right'); ?>"></i></div>
+                        </a>
+                        <ul class="sidebar-submenu" style="display: <?php echo e(request()->routeIs(['purchase.index','purchase.create'])  ? 'block' : 'none;'); ?>">
+                            <li><a href="<?php echo e(route('purchase.index')); ?>" class="<?php echo e(request()->routeIs(['purchase.index']) ? 'active' : ''); ?>">Purchases</a></li>
+                            <li><a href="<?php echo e(route('purchase.create')); ?>" class="<?php echo e(request()->routeIs(['purchase.create']) ? 'active' : ''); ?>">Create Purchase</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title " href="#">
-                            <i data-feather="dollar-sign"></i><span>Returns</span>
+                            <i data-feather="corner-up-left"></i><span>Returns</span>
                             <div class="according-menu"><i class="fa fa-angle-"></i></div>
                         </a>
                         <ul class="sidebar-submenu" style="display: none;">
@@ -93,23 +100,12 @@
                         </ul>
                     </li>
 
-                    <li class="sidebar-main-title">
-						<div>
-							<h6>Others</h6>
-						</div>
-					</li>
+
                     
 
 
 
-                    <form action="<?php echo e(route('logout')); ?>" method="POST" id="form1">
-                        <?php echo csrf_field(); ?>
-                    </form>
-                    <li class="sidebar-list">
-						<a class="sidebar-link " href="javascript:;" onclick="document.getElementById('form1').submit();">
-							<i data-feather="log-out"></i><span>Logout</span>
-						</a>
-					</li>
+
 					
 
 

@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('publisher',\App\Http\Controllers\PublisherController::class);
         Route::resource('supplier',\App\Http\Controllers\SupplierController::class);
         Route::resource('book',\App\Http\Controllers\BookController::class);
+        Route::resource('purchase',\App\Http\Controllers\PurchaseController::class);
 
     });
 });

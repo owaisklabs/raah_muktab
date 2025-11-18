@@ -22,11 +22,11 @@
         <form action="#" class="row" method="GET">
             <div class="col-3 mb-3">
                 <label for="validationCustom01">Bar Code</label>
-                <input class="form-control" name="query" type="text" placeholder="First name" required="">
+                <input class="form-control" name="query" type="text" placeholder="Bar Code" required="">
             </div>
             <div class="col-3 mb-3">
                 <label for="validationCustom01">Title</label>
-                <input class="form-control" name="query" type="text" placeholder="First name" required="">
+                <input class="form-control" name="query" type="text" placeholder="Tittle" required="">
             </div>
 
             <div class="col-2 mb-3">

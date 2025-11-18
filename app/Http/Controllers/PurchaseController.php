@@ -14,7 +14,8 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        //
+        $purchases = Purchase::latest()->paginate(10);
+        return view('purchase.index',compact('purchases'));
     }
 
     /**
@@ -24,7 +25,7 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        //
+        return  view('purchase.create');
     }
 
     /**
@@ -57,7 +58,7 @@ class PurchaseController extends Controller
      */
     public function edit(Purchase $purchase)
     {
-        //
+        return view('purchase.update',compact('purchase'));
     }
 
     /**
