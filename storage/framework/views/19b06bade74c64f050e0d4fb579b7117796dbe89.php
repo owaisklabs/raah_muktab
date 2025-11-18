@@ -1,22 +1,21 @@
-@extends('ui.layouts.simple.master')
-@section('title', 'Bootstrap Border Table')
+<?php $__env->startSection('title', 'Bootstrap Border Table'); ?>
 
-@section('css')
-@endsection
+<?php $__env->startSection('css'); ?>
+<?php $__env->stopSection(); ?>
 
-@section('style')
-@endsection
+<?php $__env->startSection('style'); ?>
+<?php $__env->stopSection(); ?>
 
-@section('breadcrumb-title')
+<?php $__env->startSection('breadcrumb-title'); ?>
     <h3>Create Purchase</h3>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
 
-@section('content')
-    <form class="needs-validation" action="{{route('book.store')}}" METHOD="post" enctype="multipart/form-data">
-        @csrf
+<?php $__env->startSection('content'); ?>
+    <form class="needs-validation" action="<?php echo e(route('book.store')); ?>" METHOD="post" enctype="multipart/form-data">
+        <?php echo csrf_field(); ?>
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -27,7 +26,7 @@
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="bar_code">Purchase date <span class="text-danger">*</span></label>
-                        <input class="form-control" id="bar_code" type="date" value="{{ now()->format('Y-m-d') }}"
+                        <input class="form-control" id="bar_code" type="date" value="<?php echo e(now()->format('Y-m-d')); ?>"
                                name="bar_code" placeholder="Barcode" required="" data-bs-original-title="" title="">
                     </div>
 
@@ -35,10 +34,10 @@
                         <label for="publisher_id">Supplier <span class="text-danger">*</span></label>
                         <select id=" publisher_id" required class="form-control " name="publisher_id">
                             <option value="">Select Supplier</option>
-                            @foreach($suppliers as $item)
+                            <?php $__currentLoopData = $suppliers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                                <option value="{{$item->id}}">{{$item->name}}</option>
-                            @endforeach
+                                <option value="<?php echo e($item->id); ?>"><?php echo e($item->name); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                         </select>
                     </div>
@@ -62,9 +61,9 @@
                         <label for="book_id_1">Book # <span class="text-danger">*</span></label>
                         <select id="book_id_1" required class="form-control" name="book_id[]">
                             <option value="">Select Book</option>
-                            @foreach($books as $item)
-                                <option value="{{$item->id}}">{{$item->title}}</option>
-                            @endforeach
+                            <?php $__currentLoopData = $books; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($item->id); ?>"><?php echo e($item->title); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 
                         </select>
@@ -97,16 +96,16 @@
 
         <button class="btn btn-primary  float-end mt-2" type="submit" data-bs-original-title="" title="">Create</button>
     </form>
-@endsection
+<?php $__env->stopSection(); ?>
 
 <style>
 
 </style>
 
 
-@section('script')
-    <script src="{{asset('assets/js/select2/select2.full.min.js')}}"></script>
-    <script src="{{asset('assets/js/select2/select2-custom.js')}}"></script>
+<?php $__env->startSection('script'); ?>
+    <script src="<?php echo e(asset('assets/js/select2/select2.full.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/select2/select2-custom.js')); ?>"></script>
     <script>
         // $(document).ready(function() {
         //     $('.select2').select2({
@@ -126,10 +125,10 @@
                                 <label for="book_id_${rowCount}">Book # <span class="text-danger">*</span></label>
                                 <select id="book_id_${rowCount}" required class="form-control book-select" name="book_id[]">
                                     <option value="">Select Book</option>
-                                   @foreach($books as $item)
+                                   <?php $__currentLoopData = $books; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                                    <option value="{{$item->id}}">{{$item->title}}</option>
-                                      @endforeach
+                                    <option value="<?php echo e($item->id); ?>"><?php echo e($item->title); ?></option>
+                                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     
                                 </select>
                             </div>
@@ -175,7 +174,9 @@
 
 
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
 
 
+
+<?php echo $__env->make('ui.layouts.simple.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\raah_muktab\resources\views/purchase/create.blade.php ENDPATH**/ ?>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Purchase;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
@@ -25,7 +27,9 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        return  view('purchase.create');
+        $suppliers = Supplier::all();
+        $books = Book::all();
+        return  view('purchase.create',compact('suppliers','books'));
     }
 
     /**

@@ -40,6 +40,7 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $request->validate([
             'sku' => 'required',
             'bar_code' => 'required',
