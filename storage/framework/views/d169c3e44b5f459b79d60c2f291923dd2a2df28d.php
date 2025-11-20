@@ -1,14 +1,13 @@
-@extends('ui.layouts.simple.master')
-@section('title', 'Bootstrap Border Table')
+<?php $__env->startSection('title', 'Bootstrap Border Table'); ?>
 
-@section('css')
-@endsection
+<?php $__env->startSection('css'); ?>
+<?php $__env->stopSection(); ?>
 
-@section('style')
-@endsection
+<?php $__env->startSection('style'); ?>
+<?php $__env->stopSection(); ?>
 
 
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="row" id="pos-app">
         <div class="col-md-6 col-lg-4">
 
@@ -68,8 +67,8 @@
         </div>
     </div>
 
-@endsection
-@section('script')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('script'); ?>
     <script>
         $(document).ready(function () {
 
@@ -114,7 +113,7 @@
                 <div class="col-6 col-md-3 mb-4">
 
                     <div class="item"  data-barcode="${p.id}">
-                        <img src="{{asset('storage')}}/${p.cover_image}" class="class="img-fluid"" style=" height: 150px;" />
+                        <img src="<?php echo e(asset('storage')); ?>/${p.cover_image}" class="class="img-fluid"" style=" height: 150px;" />
                         <h5 ">
                             ${p.title}
                         </h5>
@@ -273,4 +272,6 @@
         });
 
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('ui.layouts.simple.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\raah_muktab\resources\views/sales/create.blade.php ENDPATH**/ ?>

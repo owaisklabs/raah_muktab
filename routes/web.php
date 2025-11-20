@@ -25,6 +25,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('supplier',\App\Http\Controllers\SupplierController::class);
         Route::resource('book',\App\Http\Controllers\BookController::class);
         Route::resource('purchase',\App\Http\Controllers\PurchaseController::class);
+        Route::get('get-book-by-title',[\App\Http\Controllers\BookController::class,'getBookByTitle']);
+        Route::get('cart',[\App\Http\Controllers\CartController::class,'getCart']);
+        Route::post('cart',[\App\Http\Controllers\CartController::class,'storeCart']);
 
     });
 });

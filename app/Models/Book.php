@@ -13,6 +13,10 @@ class Book extends Model
         'sku', 'bar_code', 'title', 'subtitle', 'publisher_id', 'published_at',
         'description', 'cost_price', 'sell_price', 'cover_image', 'pages', 'language'
     ];
+    public function getCoverImageUrlAttribute()
+    {
+        return asset('storage/' . $this->cover_image);
+    }
 
     public function authors()
     {
