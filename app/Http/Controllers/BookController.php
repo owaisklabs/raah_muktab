@@ -40,7 +40,6 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         $request->validate([
             'sku' => 'required',
             'bar_code' => 'required',
@@ -93,7 +92,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        return view('book.book',compact('book'));
+        return view('book.update',compact('book'));
     }
 
     /**

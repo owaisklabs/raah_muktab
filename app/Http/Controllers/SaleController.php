@@ -14,7 +14,8 @@ class SaleController extends Controller
      */
     public function index()
     {
-        //
+        $sales = Sale::latest()->paginate(10);
+        return view('sales.index',compact('sales'));
     }
 
     /**
@@ -24,7 +25,7 @@ class SaleController extends Controller
      */
     public function create()
     {
-        //
+        return  view('sales.create');
     }
 
     /**

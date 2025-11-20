@@ -19,6 +19,7 @@ Route::post('user-login',[AuthenticationController::class,'login']);
 Route::group(['middleware' => ['auth']], function () {
     Route::prefix('dashboard')->group(function(){
         Route::get('/',[DashboardController::class,'index'])->name('dashboard');
+        Route::resource('sales',\App\Http\Controllers\SaleController::class);
         Route::resource('author',\App\Http\Controllers\AuthorController::class);
         Route::resource('publisher',\App\Http\Controllers\PublisherController::class);
         Route::resource('supplier',\App\Http\Controllers\SupplierController::class);

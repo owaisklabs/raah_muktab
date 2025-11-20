@@ -46,10 +46,11 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Contact</th>
-                            <th scope="col">Book Count</th>
-                            <th scope="col">Create At</th>
+                            <th scope="col">Invoice #</th>
+                            <th scope="col">Supplier</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Total Amount</th>
+                            <th scope="col">Status</th>
 
                             <th scope="col">Action</th>
                         </tr>
@@ -58,12 +59,16 @@
                         <?php $__currentLoopData = $purchases; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                             <tr>
-                                <th scope="row"><?php echo e($item->id); ?></th>
-                                <td><?php echo e($item->id); ?></td>
-                                <td><?php echo e($item->id); ?></td>
-                                <td>0</td>
-                                <td><?php echo e($item->id); ?></td>
+                                <td scope="row"><?php echo e($item->id); ?></td>
+                                <th ><?php echo e($item->invoice_no); ?></th>
+                                <td><?php echo e($item->supplier->name); ?></td>
+                                <td><?php echo e($item->purchase_date); ?></td>
+                                <td><?php echo e($item->total_amount); ?></td>
+                                <td><?php echo e($item->status); ?></td>
                                 <td class="d-flex align-items-center gap-2">
+                                    <a href="<?php echo e(route('publisher.edit', $item->id)); ?>" class="btn btn-sm btn-primary p-1 d-flex align-items-center justify-content-center">
+                                        <i data-feather="eye"></i>
+                                    </a>
 
                                     
                                     <form action="<?php echo e(route('publisher.destroy', $item->id)); ?>" method="POST"
@@ -76,6 +81,7 @@
                                     </form>
 
                                     
+
                                     <a href="<?php echo e(route('publisher.edit', $item->id)); ?>" class="btn btn-sm btn-primary p-1 d-flex align-items-center justify-content-center">
                                         <i data-feather="edit"></i>
                                     </a>

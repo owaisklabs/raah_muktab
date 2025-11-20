@@ -47,10 +47,11 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Contact</th>
-                            <th scope="col">Book Count</th>
-                            <th scope="col">Create At</th>
+                            <th scope="col">Invoice #</th>
+                            <th scope="col">Supplier</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Total Amount</th>
+                            <th scope="col">Status</th>
 
                             <th scope="col">Action</th>
                         </tr>
@@ -59,12 +60,16 @@
                         @foreach($purchases as $item)
 
                             <tr>
-                                <th scope="row">{{$item->id}}</th>
-                                <td>{{$item->id}}</td>
-                                <td>{{$item->id}}</td>
-                                <td>0</td>
-                                <td>{{$item->id}}</td>
+                                <td scope="row">{{$item->id}}</td>
+                                <th >{{$item->invoice_no}}</th>
+                                <td>{{$item->supplier->name}}</td>
+                                <td>{{$item->purchase_date}}</td>
+                                <td>{{$item->total_amount}}</td>
+                                <td>{{$item->status}}</td>
                                 <td class="d-flex align-items-center gap-2">
+                                    <a href="{{ route('publisher.edit', $item->id) }}" class="btn btn-sm btn-primary p-1 d-flex align-items-center justify-content-center">
+                                        <i data-feather="eye"></i>
+                                    </a>
 
                                     {{-- Delete --}}
                                     <form action="{{ route('publisher.destroy', $item->id) }}" method="POST"
@@ -77,6 +82,7 @@
                                     </form>
 
                                     {{-- Edit --}}
+
                                     <a href="{{ route('publisher.edit', $item->id) }}" class="btn btn-sm btn-primary p-1 d-flex align-items-center justify-content-center">
                                         <i data-feather="edit"></i>
                                     </a>

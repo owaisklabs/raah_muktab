@@ -14,9 +14,9 @@
                 <div class="login-card">
                     <div>
 
-                        <div><a class="logo" href="<?php echo e(route('index')); ?>"><img class="img-fluid for-light"
-                                    src="<?php echo e(asset('assets/images/logo/login.png')); ?>" alt="looginpage"><img
-                                    class="img-fluid for-dark" src="<?php echo e(asset('assets/images/logo/logo_dark.png')); ?>"
+                        <div><a class="logo" href="<?php echo e(route('dashboard')); ?>"><img class="img-fluid for-light"
+                                    src="<?php echo e(asset('assets/images/logo/login_1.png')); ?>" alt="looginpage"><img
+                                    class="img-fluid for-dark" src="<?php echo e(asset('assets/images/logo/login_1.png')); ?>"
                                     alt="looginpage"></a></div>
                         <div class="login-main">
                             <form class="theme-form" method="POST" action="<?php echo e(url('login')); ?>">

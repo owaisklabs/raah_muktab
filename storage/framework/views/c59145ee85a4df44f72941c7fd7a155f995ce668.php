@@ -7,98 +7,95 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('breadcrumb-title'); ?>
-    <h3>Create Book</h3>
+    <h3>Create Purchase</h3>
 
 
 <?php $__env->stopSection(); ?>
 
 
 <?php $__env->startSection('content'); ?>
-    <div class="card">
-
-        <div class="card-body">
-            <form class="needs-validation"  action="<?php echo e(route('book.store')); ?>" METHOD="post" enctype="multipart/form-data">
-                <?php echo csrf_field(); ?>
+    <form class="needs-validation" action="<?php echo e(route('purchase.store')); ?>" METHOD="post" enctype="multipart/form-data">
+        <?php echo csrf_field(); ?>
+        <div class="card">
+            <div class="card-body">
                 <div class="row">
                     <div class="col-md-3 mb-3">
-                        <label for="sku">SKU <span class="text-danger">*</span></label>
-                        <input class="form-control abc" id="sku" type="text" name="sku" placeholder="SKU" required="" data-bs-original-title="" title="">
+                        <label for="sku">Invoice # <span class="text-danger">*</span></label>
+                        <input class="form-control abc" id="sku" type="text" name="invoice_no" placeholder="SKU" required=""
+                               data-bs-original-title="" title="">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="bar_code">Barcode <span class="text-danger">*</span></label>
-                        <input class="form-control" id="bar_code" type="text" name="bar_code" placeholder="Barcode" required="" data-bs-original-title="" title="">
+                        <label for="bar_code">Purchase date <span class="text-danger">*</span></label>
+                        <input class="form-control" id="bar_code" type="date" value="<?php echo e(now()->format('Y-m-d')); ?>"
+                               name="purchase_date" placeholder="Barcode" required="" data-bs-original-title="" title="">
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="title">Title <span class="text-danger">*</span></label>
-                        <input class="form-control" id="title" type="text" name="title" placeholder="Title" required="" data-bs-original-title="" title="">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="subtitle">Sub Title</label>
-                        <input class="form-control" id="subtitle" type="text" name="subtitle" placeholder="Sub Title"  data-bs-original-title="" title="">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="publisher_id">Publisher <span class="text-danger">*</span></label>
 
-                        <select id=" publisher_id" required class="form-control " name="publisher_id">
-                            <option value="">Select Publisher</option>
-                            <option value="">Select Publisher</option>
-                            <option value="">Select Publisher</option>
-                            <option value="">Select Publisher</option>
-                            <option value="">Select Publisher</option>
-                            <option value="">Select Publisher</option>
+                    <div class="col-md-3 mb-3">
+                        <label for="publisher_id">Supplier <span class="text-danger">*</span></label>
+                        <select id=" publisher_id" required class="form-control " name="supplier_id">
+                            <option value="">Select Supplier</option>
+                            <?php $__currentLoopData = $suppliers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+                                <option value="<?php echo e($item->id); ?>"><?php echo e($item->name); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                         </select>
-
-
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="author_id">Author <span class="text-danger">*</span></label>
+                        <label for="publisher_id">Status <span class="text-danger">*</span></label>
 
-                        <select id=" author_id" required class="form-control " name="author_id[]">
-                            <option value="">Select Publisher</option>
-                            <option value="">Select Publisher</option>
-                            <option value="">Select Publisher</option>
-                            <option value="">Select Publisher</option>
-                            <option value="">Select Publisher</option>
+                        <select id=" publisher_id" required class="form-control " name="status">
+                            <option value="">Select Status</option>
+                            <option value="received">received</option>
+                            <option value="pending">pending</option>
                         </select>
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="published_at">Published At</label>
-                        <input class="form-control" id="published_at" type="date" name="published_at" placeholder="Published At"  data-bs-original-title="" title="">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="description">Description</label>
-                        <input class="form-control" id="description" type="text" name="description" placeholder="Description"  data-bs-original-title="" title="">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="cost_price">Cost Price <span class="text-danger">*</span></label>
-                        <input class="form-control" id="cost_price" type="number" name="cost_price" placeholder="Cost Price" required="" data-bs-original-title="" title="">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="sell_price">Sell Price <span class="text-danger">*</span></label>
-                        <input class="form-control" id="sell_price" type="number" name="sell_price" placeholder="Sell Price" required="" data-bs-original-title="" title="">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="cover_image">Cover Image <span class="text-danger">*</span></label>
-                        <input class="form-control" id="cover_image" type="file" name="cover_image" placeholder="Cover Image" required="" data-bs-original-title="" title="">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="pages">Pages</label>
-                        <input class="form-control" id="pages" type="number" name="pages" placeholder="Pages"  data-bs-original-title="" title="">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="language">Language</label>
-                        <input class="form-control" id="language" type="text" name="language" placeholder="Language"  data-bs-original-title="" title="">
-                    </div>
-                    <img id="preview-image" src="#" alt="Preview" style="max-width: 250px; display: none; border: 1px solid #ccc; padding: 5px;">
-
                 </div>
-
-
-                <button class="btn btn-primary" type="submit" data-bs-original-title="" title="">Create</button>
-            </form>
+            </div>
         </div>
-    </div>
+        <h3>Purchase Items</h3>
+        <div id="rows-container">
+            <div class="row-container">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="book_id_0">Book # <span class="text-danger">*</span></label>
+                        <select id="book_id_0" required class="form-control" name="items[0][book_id]">
+                            <option value="">Select Book</option>
+                            <?php $__currentLoopData = $books; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($item->id); ?>"><?php echo e($item->title); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="quantity_0">Qty <span class="text-danger">*</span></label>
+                        <input class="form-control" id="quantity_0" type="number" name="items[0][quantity]" placeholder="Qty" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="unit_cost_0">Unit Cost <span class="text-danger">*</span></label>
+                        <input class="form-control" id="unit_cost_0" type="number" name="items[0][unit_cost]" placeholder="Unit Cost" required>
+                    </div>
+                    <div class="col-md-2 mb-3 action-buttons">
+                        <!-- Remove button hidden for the first row -->
+                        <button type="button" class="btn btn-danger remove-row mt-4" style="display: none;">
+                            -
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                <button type="button" class="btn btn btn-outline-dark-2x" id="add-row">
+                    +
+                </button>
+            </div>
+        </div>
+
+        <button class="btn btn-primary  float-end mt-2" type="submit" data-bs-original-title="" title="">Create</button>
+    </form>
 <?php $__env->stopSection(); ?>
 
 <style>
@@ -116,15 +113,66 @@
         //         allowClear: true
         //     });
         // });
-        document.getElementById('cover_image').addEventListener('change', function(event){
-            const file = event.target.files[0];
+        $(document).ready(function() {
+            let rowCount = 0;
+            $('#add-row').on('click', function() {
+                rowCount++;
 
-            if (file) {
-                const preview = document.getElementById('preview-image');
-                preview.src = URL.createObjectURL(file);
-                preview.style.display = 'block';
-            }
+                const newRow = $(`
+                    <div class="row-container">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="book_id_${rowCount}">Book # <span class="text-danger">*</span></label>
+                                <select id="book_id_${rowCount}" required class="form-control book-select" name="items[${rowCount}][book_id]">
+                                    <option value="">Select Book</option>
+                                   <?php $__currentLoopData = $books; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+                                    <option value="<?php echo e($item->id); ?>"><?php echo e($item->title); ?></option>
+                                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="quantity_${rowCount}">Qty <span class="text-danger">*</span></label>
+                                <input class="form-control quantity-input" id="quantity_${rowCount}" type="number" name="items[${rowCount}][quantity]" placeholder="Qty" min="1" value="1" required>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="unit_cost_${rowCount}">Unit Cost <span class="text-danger">*</span></label>
+                                <input class="form-control unit-cost-input" id="unit_cost_${rowCount}" type="number" name="items[${rowCount}][unit_cost]" placeholder="Unit Cost" step="0.01" min="0" required>
+                            </div>
+                            <div class="col-md-2 mb-3 action-buttons">
+                                <button type="button" class="btn btn-danger mt-4 remove-row">
+                                    -
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `);
+
+                $('#rows-container').append(newRow);
+
+                // Show remove buttons on all rows if there's more than one
+                if (rowCount > 1) {
+                    $('.remove-row').show();
+                }
+                updateTotals();
+            });
+            $(document).on('click', '.remove-row', function() {
+                $(this).closest('.row-container').remove();
+                rowCount--;
+
+                // Hide remove buttons if only one row remains
+                if (rowCount === 1) {
+                    $('.remove-row').hide();
+                }
+            });
+
+            $('#submit-form').on('click', function() {
+
+            });
         });
+
+
     </script>
 <?php $__env->stopSection(); ?>
 

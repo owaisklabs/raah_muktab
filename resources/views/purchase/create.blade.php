@@ -15,25 +15,25 @@
 
 
 @section('content')
-    <form class="needs-validation" action="{{route('book.store')}}" METHOD="post" enctype="multipart/form-data">
+    <form class="needs-validation" action="{{route('purchase.store')}}" METHOD="post" enctype="multipart/form-data">
         @csrf
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="sku">Invoice # <span class="text-danger">*</span></label>
-                        <input class="form-control abc" id="sku" type="text" name="sku" placeholder="SKU" required=""
+                        <input class="form-control abc" id="sku" type="text" name="invoice_no" placeholder="SKU" required=""
                                data-bs-original-title="" title="">
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="bar_code">Purchase date <span class="text-danger">*</span></label>
                         <input class="form-control" id="bar_code" type="date" value="{{ now()->format('Y-m-d') }}"
-                               name="bar_code" placeholder="Barcode" required="" data-bs-original-title="" title="">
+                               name="purchase_date" placeholder="Barcode" required="" data-bs-original-title="" title="">
                     </div>
 
                     <div class="col-md-3 mb-3">
                         <label for="publisher_id">Supplier <span class="text-danger">*</span></label>
-                        <select id=" publisher_id" required class="form-control " name="publisher_id">
+                        <select id=" publisher_id" required class="form-control " name="supplier_id">
                             <option value="">Select Supplier</option>
                             @foreach($suppliers as $item)
 
@@ -45,7 +45,7 @@
                     <div class="col-md-3 mb-3">
                         <label for="publisher_id">Status <span class="text-danger">*</span></label>
 
-                        <select id=" publisher_id" required class="form-control " name="publisher_id">
+                        <select id=" publisher_id" required class="form-control " name="status">
                             <option value="">Select Status</option>
                             <option value="received">received</option>
                             <option value="pending">pending</option>
@@ -59,8 +59,8 @@
             <div class="row-container">
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label for="book_id_1">Book # <span class="text-danger">*</span></label>
-                        <select id="book_id_1" required class="form-control" name="book_id[]">
+                        <label for="book_id_0">Book # <span class="text-danger">*</span></label>
+                        <select id="book_id_0" required class="form-control" name="items[0][book_id]">
                             <option value="">Select Book</option>
                             @foreach($books as $item)
                                 <option value="{{$item->id}}">{{$item->title}}</option>
@@ -70,12 +70,12 @@
                         </select>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="quantity_1">Qty <span class="text-danger">*</span></label>
-                        <input class="form-control" id="quantity_1" type="number" name="quantity[]" placeholder="Qty" required>
+                        <label for="quantity_0">Qty <span class="text-danger">*</span></label>
+                        <input class="form-control" id="quantity_0" type="number" name="items[0][quantity]" placeholder="Qty" required>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="unit_cost_1">Unit Cost <span class="text-danger">*</span></label>
-                        <input class="form-control" id="unit_cost_1" type="number" name="unit_cost[]" placeholder="Unit Cost" required>
+                        <label for="unit_cost_0">Unit Cost <span class="text-danger">*</span></label>
+                        <input class="form-control" id="unit_cost_0" type="number" name="items[0][unit_cost]" placeholder="Unit Cost" required>
                     </div>
                     <div class="col-md-2 mb-3 action-buttons">
                         <!-- Remove button hidden for the first row -->
@@ -115,7 +115,7 @@
         //     });
         // });
         $(document).ready(function() {
-            let rowCount = 1;
+            let rowCount = 0;
             $('#add-row').on('click', function() {
                 rowCount++;
 
@@ -124,22 +124,22 @@
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <label for="book_id_${rowCount}">Book # <span class="text-danger">*</span></label>
-                                <select id="book_id_${rowCount}" required class="form-control book-select" name="book_id[]">
+                                <select id="book_id_${rowCount}" required class="form-control book-select" name="items[${rowCount}][book_id]">
                                     <option value="">Select Book</option>
                                    @foreach($books as $item)
 
                                     <option value="{{$item->id}}">{{$item->title}}</option>
                                       @endforeach
-                                    
+
                                 </select>
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="quantity_${rowCount}">Qty <span class="text-danger">*</span></label>
-                                <input class="form-control quantity-input" id="quantity_${rowCount}" type="number" name="quantity[]" placeholder="Qty" min="1" value="1" required>
+                                <input class="form-control quantity-input" id="quantity_${rowCount}" type="number" name="items[${rowCount}][quantity]" placeholder="Qty" min="1" value="1" required>
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="unit_cost_${rowCount}">Unit Cost <span class="text-danger">*</span></label>
-                                <input class="form-control unit-cost-input" id="unit_cost_${rowCount}" type="number" name="unit_cost[]" placeholder="Unit Cost" step="0.01" min="0" required>
+                                <input class="form-control unit-cost-input" id="unit_cost_${rowCount}" type="number" name="items[${rowCount}][unit_cost]" placeholder="Unit Cost" step="0.01" min="0" required>
                             </div>
                             <div class="col-md-2 mb-3 action-buttons">
                                 <button type="button" class="btn btn-danger mt-4 remove-row">
