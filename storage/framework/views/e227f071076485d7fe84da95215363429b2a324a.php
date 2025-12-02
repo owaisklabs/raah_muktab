@@ -1,0 +1,1 @@
+<?php /**PATH C:\laragon\www\raah_muktab\resources\views/sales/index.blade.php ENDPATH**/ ?>

@@ -76,7 +76,7 @@
                                 @endforeach
 
                             </td>
-                            <td>0</td>
+                            <td>{{$item->inventory->quantity ?? "-"}}</td>
                             <td><img src="{{ asset('storage/' . $item->cover_image) }}" style="height: 150px;" alt="{{$item->title}}"></td>
                             <td>{{$item->cost_price}}</td>
                             <td>{{$item->sell_price}}</td>

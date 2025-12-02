@@ -80,6 +80,8 @@ class PurchaseController extends Controller
             }
         }
         $purchase->update(['total_amount' => $totalAmount]);
+        return redirect()->route('purchase.index');
+
     }
 
     /**

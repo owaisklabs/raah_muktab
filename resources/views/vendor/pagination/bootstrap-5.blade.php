@@ -30,7 +30,7 @@
 
 @if ($paginator->hasPages())
     <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center gap-2  mt-2">
+        <ul class="pagination justify-content-center gap-2  mb-2 mt-2">
 
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())

@@ -18,7 +18,7 @@
     @yield('style')
   </head>
   <body>
-    @if(Route::current()->getName() == 'index')
+{{--    @if(Route::current()->getName() == 'index')--}}
       <div class="loader-wrapper">
         <div class="loader-index"><span></span></div>
         <svg>
@@ -29,7 +29,7 @@
           </filter>
         </svg>
       </div>
-     @endif
+{{--     @endif--}}
     <!-- tap on top starts-->
     <div class="tap-top"><i data-feather="chevrons-up"></i></div>
     <!-- tap on tap ends-->

@@ -47,8 +47,8 @@
 
                         <select id=" publisher_id" required class="form-control " name="status">
                             <option value="">Select Status</option>
-                            <option value="received">received</option>
-                            <option value="pending">pending</option>
+                            <option value="received">Received</option>
+                            <option value="pending">Pending</option>
                         </select>
                     </div>
                 </div>

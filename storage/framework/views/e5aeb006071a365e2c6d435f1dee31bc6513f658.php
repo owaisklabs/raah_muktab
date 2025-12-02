@@ -18,7 +18,7 @@
     <?php echo $__env->yieldContent('style'); ?>
   </head>
   <body>
-    <?php if(Route::current()->getName() == 'index'): ?>
+
       <div class="loader-wrapper">
         <div class="loader-index"><span></span></div>
         <svg>
@@ -29,7 +29,7 @@
           </filter>
         </svg>
       </div>
-     <?php endif; ?>
+
     <!-- tap on top starts-->
     <div class="tap-top"><i data-feather="chevrons-up"></i></div>
     <!-- tap on tap ends-->

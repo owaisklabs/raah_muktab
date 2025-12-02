@@ -109,10 +109,9 @@
     });
 
 })(jQuery);
-
-$('.loader-wrapper').fadeOut('slow', function () {
-    $(this).remove();
-});
+setTimeout(function() {
+    $('.loader-wrapper').fadeOut('slow');
+}, 300);
 
 $(window).on('scroll', function () {
     if ($(this).scrollTop() > 600) {

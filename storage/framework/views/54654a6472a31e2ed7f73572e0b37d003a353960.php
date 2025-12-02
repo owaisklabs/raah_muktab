@@ -21,11 +21,11 @@
         <form action="#" class="row" method="GET">
             <div class="col-3 mb-3">
                 <label for="validationCustom01">Bar Code</label>
-                <input class="form-control" name="query" type="text" placeholder="First name" required="">
+                <input class="form-control" name="query" type="text" placeholder="Bar Code" required="">
             </div>
             <div class="col-3 mb-3">
                 <label for="validationCustom01">Title</label>
-                <input class="form-control" name="query" type="text" placeholder="First name" required="">
+                <input class="form-control" name="query" type="text" placeholder="Tittle" required="">
             </div>
 
             <div class="col-2 mb-3">
@@ -75,7 +75,7 @@
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                             </td>
-                            <td>0</td>
+                            <td><?php echo e($item->inventory->quantity ?? "-"); ?></td>
                             <td><img src="<?php echo e(asset('storage/' . $item->cover_image)); ?>" style="height: 150px;" alt="<?php echo e($item->title); ?>"></td>
                             <td><?php echo e($item->cost_price); ?></td>
                             <td><?php echo e($item->sell_price); ?></td>

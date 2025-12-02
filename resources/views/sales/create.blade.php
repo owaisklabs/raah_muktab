@@ -33,9 +33,11 @@
                     <thead>
                     <tr>
                         <th>Books</th>
+                        <th>Book Price</th>
                         <th>Qty</th>
-                        <th>Price</th>
                         <th>Discount</th>
+                        <th>Line Total</th>
+                        <th>Action</th>
 
                     </tr>
                     </thead>
@@ -107,7 +109,6 @@
                 $.get(`http://localhost/raah_muktab/public/dashboard/get-book-by-title?search=${search}`, function (res) {
                     const products = res.data || [];
                     const list = $("#product-list");
-                    console.log(products)
                     list.html("");
                     products.forEach(p => {
                         list.append(`
@@ -128,6 +129,7 @@
             // Click to add product
             $("#product-list").on("click", ".item", function () {
                 const bookId = $(this).data("barcode");
+
                 addProductToCart(bookId);
             });
 
@@ -136,7 +138,7 @@
             // -----------------------------
             function loadCart() {
                 $.get("http://localhost/raah_muktab/public/dashboard/cart", function (cart) {
-                    renderCart(cart);
+                    renderCart(cart.data);
                 });
             }
 
@@ -145,22 +147,36 @@
                 tbody.html("");
 
                 let total = 0;
-
                 cart.forEach(item => {
-                    const lineTotal = item.price * item.pivot.quantity;
+                    const quantity = item.pivot.quantity;
+                    const discount = item.pivot.discount || 0; // default 0
+                    const lineTotal = quantity * item.sell_price * (1 - discount / 100);
                     total += lineTotal;
 
                     tbody.append(`
                 <tr>
-                    <td>${item.name}</td>
-                    <td>
-                        <input type="text" class="form-control form-control-sm qty-input"
-                               value="${item.pivot.quantity}" data-id="${item.id}">
-                        <button class="btn btn-danger btn-sm btn-del" data-id="${item.id}">
-                            <i class="fas fa-trash"></i>
-                        </button>
+                    <td>${item.title}</td>
+                    <td class="text-right">${item.sell_price}</td>
+
+                    <td class="">
+
+                        <input type="number" class="form-control form-control-sm qty-input"
+                              name="qty[]" value="${quantity}" data-id="${item.id}">
+
                     </td>
-                    <td class="text-right">${window.APP.currency_symbol} ${lineTotal.toFixed(2)}</td>
+                    <input type="hidden" name="book_id[]" value="${item.id}">
+                    <input type="hidden" name="book_price[]" value="${item.sell_price}">
+                    <input type="hidden" name="line_total[]" value="${lineTotal.toFixed(2)}">
+                    <td><input type="text" name="discount[]" class="form-control form-control-sm discount-input" value="${discount}" data-id="${item.id}"></td>
+                    <td class="text-right">${lineTotal.toFixed(2)}</td>
+                     <td>
+                            <button class="btn btn-danger btn-sm btn-del" data-id="${item.id}"  style="padding: 4px;">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18"/>
+                                <line x1="6" y1="6" x2="18" y2="18"/>
+                             </svg>
+                        </button>
+                     </td>
                 </tr>
             `);
                 });
@@ -189,30 +205,44 @@
             // ADD PRODUCT TO CART
             // -----------------------------
             function addProductToCart(bookId) {
+                $('.loader-wrapper').fadeIn();
                 $.ajaxSetup({
                     headers: {
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
                     }
                 });
-                console.log()
                 $.post("http://localhost/raah_muktab/public/dashboard/cart", { bookId }, function () {
                     loadCart();
+                    $('.loader-wrapper').fadeOut();
                 }).fail(err => {
                     Swal.fire("Error!", err.responseJSON.message, "error");
+                    $('.loader-wrapper').fadeOut();
                 });
             }
 
             // -----------------------------
             // UPDATE QTY
             // -----------------------------
-            $("#cart-table").on("change", ".qty-input", function () {
-                const id = $(this).data("id");
-                const qty = $(this).val();
+            $("#cart-table").on("change", ".qty-input, .discount-input", function () {
 
-                $.post("/admin/cart/change-qty", { product_id: id, quantity: qty }, function () {
+                const id = $(this).data("id");
+                // const qty = $(this).val();
+                const row = $(this).closest("tr");
+                const qty = parseFloat(row.find(".qty-input").val());
+                const discount = parseFloat(row.find(".discount-input").val()) || 0;
+                $('.loader-wrapper').fadeIn();
+                $.ajaxSetup({
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                    }
+                });
+
+                $.post("http://localhost/raah_muktab/public/dashboard/cart/change-qty", { product_id: id, quantity: qty,discount: discount}, function () {
                     loadCart();
+                    $('.loader-wrapper').fadeOut();
                 }).fail(err => {
                     Swal.fire("Error!", err.responseJSON.message, "error");
+                    $('.loader-wrapper').fadeOut();
                 });
             });
 
@@ -221,9 +251,15 @@
             // -----------------------------
             $("#cart-table").on("click", ".btn-del", function () {
                 const id = $(this).data("id");
-
-                $.post("/admin/cart/delete", { product_id: id, _method: "DELETE" }, function () {
+                $.ajaxSetup({
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                    }
+                });
+                $('.loader-wrapper').fadeIn();
+                $.post("http://localhost/raah_muktab/public/dashboard/cart/delete", { product_id: id, _method: "DELETE" }, function () {
                     loadCart();
+                    $('.loader-wrapper').fadeOut();
                 });
             });
 
@@ -231,8 +267,15 @@
             // EMPTY CART
             // -----------------------------
             $("#btn-empty").click(function () {
-                $.post("/admin/cart/empty", { _method: "DELETE" }, function () {
+                $('.loader-wrapper').fadeIn();
+                $.ajaxSetup({
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                    }
+                });
+                $.post("http://localhost/raah_muktab/public/dashboard/cart/empty", { _method: "DELETE" }, function () {
                     loadCart();
+                    $('.loader-wrapper').fadeOut();
                 });
             });
 
@@ -241,7 +284,9 @@
             // -----------------------------
             $("#search").keydown(function (e) {
                 if (e.keyCode === 13) {
+                    $('.loader-wrapper').fadeIn();
                     loadProducts($(this).val());
+                    $('.loader-wrapper').fadeOut();
                 }
             });
 
@@ -249,22 +294,42 @@
             // CHECKOUT
             // -----------------------------
             $("#btn-checkout").click(function () {
+                let cartData = [];
+                $('#cart-table tbody tr').each(function () {
+                    cartData.push({
+                        qty: $(this).find('input[name="qty[]"]').val(),
+                        discount: $(this).find('input[name="discount[]"]').val(),
+                        price: $(this).find('input[name="book_price[]"]').val(),
+                        line_total: $(this).find('input[name="line_total[]"]').val(),
+                        book_id: $(this).find('input[name="book_id[]"]').val(),
+                    });
+                });
                 const total = $("#cart-total").text();
 
                 Swal.fire({
-                    title: window.T["received_amount"] || "Received Amount",
+                    title:  "Received Amount",
                     input: "text",
                     inputValue: total,
                     showCancelButton: true,
-                    confirmButtonText: window.T["confirm_pay"] || "Confirm",
+                    confirmButtonText: "Confirm",
                 }).then(result => {
                     if (!result.value) return;
 
-                    $.post("/admin/orders", {
+                    $.ajaxSetup({
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                        }
+                    });
+                    $.post("http://localhost/raah_muktab/public/dashboard/sales", {
                         customer_id: $("#customer_id").val(),
-                        amount: result.value
-                    }, function () {
+                        amount: result.value,
+                        cartData : cartData
+                    }, function (res) {
+                        console.log(res.data.id)
+                        window.location.href =  `http://localhost/raah_muktab/public/dashboard/print-receipt/${res.data.id} `;
+
                         loadCart();
+
                     }).fail(err => {
                         Swal.fire("Error!", err.responseJSON.message, "error");
                     });

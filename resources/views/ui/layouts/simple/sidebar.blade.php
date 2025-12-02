@@ -24,15 +24,14 @@
                     {{-- user --}}
 
                     <li class="sidebar-list">
-						{{-- {{ request()->routeIs(['sales.index','sales.create']) ? 'active' : '' }} --}}
-                        <a class="sidebar-link sidebar-title " href="#">
+						 {{ request()->routeIs(['sales.index','sales.create']) ? 'active' : '' }}
+                        <a class="sidebar-link sidebar-title {{ request()->routeIs(['sales.index','sales.create']) ? 'active' : '' }} " href="#">
                             <i data-feather="shopping-bag"></i><span>Sales</span>
-							{{-- {{request()->routeIs(['sales.index','sales.create']) ? 'down' : 'right' }} --}}
-                            <div class="according-menu"><i class="fa fa-angle-"></i></div>
+                            <div class="according-menu"><i class="fa fa-angle-{{request()->routeIs(['sales.index','sales.create']) ? 'down' : 'right' }}"></i></div>
                         </a>
                         <ul class="sidebar-submenu" style="display: {{request()->routeIs(['sales.index','sales.create']) ? 'block' : 'none;' }};">
-                            <li><a href="" class="">Sales</a></li>
-                            <li><a href="" class="">Create Sale</a></li>
+                            <li><a href="{{route('sales.index')}}" class="{{ request()->routeIs(['sales.index']) ? 'active' : '' }}">Sales</a></li>
+                            <li><a href="{{route('sales.create')}}" class="{{ request()->routeIs(['sales.create']) ? 'active' : '' }}">Create Sale</a></li>
                         </ul>
                     </li>
 					<li class="sidebar-list">
@@ -87,6 +86,16 @@
                         <ul class="sidebar-submenu" style="display: {{request()->routeIs(['purchase.index','purchase.create'])  ? 'block' : 'none;' }}">
                             <li><a href="{{route('purchase.index')}}" class="{{ request()->routeIs(['purchase.index']) ? 'active' : '' }}">Purchases</a></li>
                             <li><a href="{{route('purchase.create')}}" class="{{ request()->routeIs(['purchase.create']) ? 'active' : '' }}">Create Purchase</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title{{ request()->routeIs(['customer.index','customer.create']) ? 'active' : '' }} " href="#">
+                            <i data-feather="shopping-cart"></i><span>Customer</span>
+                            <div class="according-menu"><i class="fa fa-angle-{{request()->routeIs(['customer.index','customer.create']) ? 'down' : 'right' }}"></i></div>
+                        </a>
+                        <ul class="sidebar-submenu" style="display: {{request()->routeIs(['customer.index','customer.create'])  ? 'block' : 'none;' }}">
+                            <li><a href="{{route('customer.index')}}" class="{{ request()->routeIs(['customer.index']) ? 'active' : '' }}">Customers</a></li>
+                            <li><a href="{{route('customer.create')}}" class="{{ request()->routeIs(['customer.create']) ? 'active' : '' }}">Create Customer</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-list">

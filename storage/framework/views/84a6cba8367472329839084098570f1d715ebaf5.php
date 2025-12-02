@@ -24,15 +24,15 @@
                     
 
                     <li class="sidebar-list">
-						
-                        <a class="sidebar-link sidebar-title " href="#">
+						 <?php echo e(request()->routeIs(['sales.index','sales.create']) ? 'active' : ''); ?>
+
+                        <a class="sidebar-link sidebar-title <?php echo e(request()->routeIs(['sales.index','sales.create']) ? 'active' : ''); ?> " href="#">
                             <i data-feather="shopping-bag"></i><span>Sales</span>
-							
-                            <div class="according-menu"><i class="fa fa-angle-"></i></div>
+                            <div class="according-menu"><i class="fa fa-angle-<?php echo e(request()->routeIs(['sales.index','sales.create']) ? 'down' : 'right'); ?>"></i></div>
                         </a>
                         <ul class="sidebar-submenu" style="display: <?php echo e(request()->routeIs(['sales.index','sales.create']) ? 'block' : 'none;'); ?>;">
-                            <li><a href="" class="">Sales</a></li>
-                            <li><a href="" class="">Create Sale</a></li>
+                            <li><a href="<?php echo e(route('sales.index')); ?>" class="<?php echo e(request()->routeIs(['sales.index']) ? 'active' : ''); ?>">Sales</a></li>
+                            <li><a href="<?php echo e(route('sales.create')); ?>" class="<?php echo e(request()->routeIs(['sales.create']) ? 'active' : ''); ?>">Create Sale</a></li>
                         </ul>
                     </li>
 					<li class="sidebar-list">
@@ -87,6 +87,16 @@
                         <ul class="sidebar-submenu" style="display: <?php echo e(request()->routeIs(['purchase.index','purchase.create'])  ? 'block' : 'none;'); ?>">
                             <li><a href="<?php echo e(route('purchase.index')); ?>" class="<?php echo e(request()->routeIs(['purchase.index']) ? 'active' : ''); ?>">Purchases</a></li>
                             <li><a href="<?php echo e(route('purchase.create')); ?>" class="<?php echo e(request()->routeIs(['purchase.create']) ? 'active' : ''); ?>">Create Purchase</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title<?php echo e(request()->routeIs(['customer.index','customer.create']) ? 'active' : ''); ?> " href="#">
+                            <i data-feather="shopping-cart"></i><span>Customer</span>
+                            <div class="according-menu"><i class="fa fa-angle-<?php echo e(request()->routeIs(['customer.index','customer.create']) ? 'down' : 'right'); ?>"></i></div>
+                        </a>
+                        <ul class="sidebar-submenu" style="display: <?php echo e(request()->routeIs(['customer.index','customer.create'])  ? 'block' : 'none;'); ?>">
+                            <li><a href="<?php echo e(route('customer.index')); ?>" class="<?php echo e(request()->routeIs(['customer.index']) ? 'active' : ''); ?>">Customers</a></li>
+                            <li><a href="<?php echo e(route('customer.create')); ?>" class="<?php echo e(request()->routeIs(['customer.create']) ? 'active' : ''); ?>">Create Customer</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-list">

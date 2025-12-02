@@ -25,10 +25,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('supplier',\App\Http\Controllers\SupplierController::class);
         Route::resource('book',\App\Http\Controllers\BookController::class);
         Route::resource('purchase',\App\Http\Controllers\PurchaseController::class);
+        Route::resource('customer',\App\Http\Controllers\CustomerController::class);
         Route::get('get-book-by-title',[\App\Http\Controllers\BookController::class,'getBookByTitle']);
         Route::get('cart',[\App\Http\Controllers\CartController::class,'getCart']);
         Route::post('cart',[\App\Http\Controllers\CartController::class,'storeCart']);
-
+        Route::delete('cart/empty',[\App\Http\Controllers\CartController::class,'empty']);
+        Route::delete('cart/delete',[\App\Http\Controllers\CartController::class,'delete']);
+        Route::post('cart/change-qty',[\App\Http\Controllers\CartController::class,'changeQty']);
+        Route::get('print-receipt/{id}',[\App\Http\Controllers\SaleController::class,'printA5Receipt']);
     });
 });
 Auth::routes();
