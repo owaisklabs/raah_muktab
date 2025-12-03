@@ -19,7 +19,7 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $sales = Sale::latest()->paginate(10);
+        $sales = Sale::has('items')->with('items')->latest()->paginate(10);
         return view('sales.index',compact('sales'));
     }
 
@@ -36,7 +36,6 @@ class SaleController extends Controller
 
     public function store(Request $request)
     {
-
         $request->validate([
             'amount'       => 'required|numeric|min:0',
             'cartData'     => 'required|array|min:1',
@@ -104,7 +103,7 @@ class SaleController extends Controller
     public function printA5Receipt($id){
         $sale = Sale::with('items.book')->findOrFail($id);
         return view('reports.sale-receipt-a5',compact('sale'));
-        $pdf = PDF::loadView('reports.sale-receipt-a5', compact('sale'))
+        $pdf = PDF::loadView('reports.sale-receipt-thermal', compact('sale'))
             ->setPaper('a5', 'landscape');
 
         return $pdf->stream('receipt-'.$sale->invoice_no.'.pdf'); // open in browser
@@ -154,5 +153,30 @@ class SaleController extends Controller
     public function destroy(Sale $sale)
     {
         //
+    }
+    public function paymentReceive(Request $request){
+        $saleId = $request->sale_id;
+        $receiveAmount = $request->receive_amount;
+
+        $sale = Sale::findOrFail($saleId);
+
+        $sale->paid_amount = $sale->paid_amount + $receiveAmount;
+
+        if ($sale->paid_amount >= $sale->total_amount) {
+            $sale->status = 'paid';
+        } elseif ($sale->paid_amount > 0) {
+            $sale->status = 'open';
+        }
+
+        $sale->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Payment received successfully.',
+            'sale' => $sale,
+            'redirect_url' => route('sales.index')
+        ]);
+
+
     }
 }

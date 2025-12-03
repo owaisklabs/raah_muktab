@@ -60,9 +60,9 @@
 <body>
 <div class="invoice">
     <h2>Maktaba Muslehuddin </h2>
-    <p class="small">Date: {{ $sale->created_at->format('d/m/Y | H:i') }}<br>
-        Invoice #: {{ $sale->invoice_no }}<br>
-        Customer: {{ $sale->customer_name ?? "-" }}</p>
+    <p class="small">Date: <?php echo e($sale->created_at->format('d/m/Y | H:i')); ?><br>
+        Invoice #: <?php echo e($sale->invoice_no); ?><br>
+        Customer: <?php echo e($sale->customer_name ?? "-"); ?></p>
     <table>
         <thead>
         <tr>
@@ -74,26 +74,26 @@
         </tr>
         </thead>
         <tbody>
-        @php
+        <?php
             $discountTotal=0;
             $lineTotal=0;
-        @endphp
-        @if(isset($sale->items))
-            @foreach($sale->items as $item)
+        ?>
+        <?php if(isset($sale->items)): ?>
+            <?php $__currentLoopData = $sale->items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                <td>{{$item->book->title ?? "-"}}</td>
-                <td >{{$item->quantity}}</td>
-                <td >{{number_format($item->unit_price,2)}}</td>
-                <td >{{$item->discount}}%</td>
-                <td >{{number_format($item->total,2)}}</td>
-                @php
+                <td><?php echo e($item->book->title ?? "-"); ?></td>
+                <td ><?php echo e($item->quantity); ?></td>
+                <td ><?php echo e(number_format($item->unit_price,2)); ?></td>
+                <td ><?php echo e($item->discount); ?>%</td>
+                <td ><?php echo e(number_format($item->total,2)); ?></td>
+                <?php
                     $discount = $item->line_total - $item->total;
                     $discountTotal += $discount;
                     $lineTotal += $item->line_total;
-                @endphp
+                ?>
                 </tr>
-            @endforeach
-        @endif
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php endif; ?>
 
 
         </tbody>
@@ -102,15 +102,15 @@
     <table class="totals">
         <tr>
             <td>Subtotal</td>
-            <td class="right">{{number_format($lineTotal,2)}}</td>
+            <td class="right"><?php echo e(number_format($lineTotal,2)); ?></td>
         </tr>
         <tr>
             <td>Discount</td>
-            <td class="right">{{number_format($discountTotal,2)}}</td>
+            <td class="right"><?php echo e(number_format($discountTotal,2)); ?></td>
         </tr>
         <tr>
             <td><strong>Total</strong></td>
-            <td class="right"><strong>{{number_format($sale->total_amount,2)}}</strong></td>
+            <td class="right"><strong><?php echo e(number_format($sale->total_amount,2)); ?></strong></td>
         </tr>
     </table>
 
@@ -121,3 +121,4 @@
 
 </body>
 </html>
+<?php /**PATH C:\laragon\www\raah_muktab\resources\views/reports/sale-receipt-thermal.blade.php ENDPATH**/ ?>

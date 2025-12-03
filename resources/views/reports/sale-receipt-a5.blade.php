@@ -1,115 +1,111 @@
 <!DOCTYPE html>
-
 <html>
 <head>
-    <title>A5 Receipt</title>
-
+    <meta charset="utf-8" />
+    <title>A5 Height Invoice</title>
 
     <style>
         @page {
-            size: A5 landscape;
-            margin: 10mm;
+            size: A4 portrait;
+            margin: 5mm;
         }
 
         body {
             font-family: Arial, sans-serif;
-            font-size: 14px;
+            padding: 0;
+            margin: 0;
         }
 
-        .receipt {
+        .receipt-wrapper {
             width: 100%;
-            text-align: center;
+            height: 148mm; /* Half A4 height */
+            border: 1px dashed #000; /* optional – cut line */
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        img.logo {
+            max-height: 60px;
+            display: block;
+            margin: 0 auto 10px auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        img.logo {
-            max-height: 80px;
-            margin-bottom: 10px;
+            margin-top: 8px;
         }
 
         td, th {
+            border: 1px solid #000;
             padding: 4px;
+            text-align: center;
+        }
+
+        .no-border td {
+            border: none !important;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 13px;
         }
     </style>
-    <script>
-        window.print();
-    </script>
-
-
 </head>
 <body>
-<div class="receipt">
-    <img src="https://raahwelfare.com/img/Logo%20Raah.png" alt="Raah Logo" class="logo">
 
-    <table style="width:100%; border-collapse:collapse;">
-        <tr style="border:none;">
-            <td style="border:none; padding:4px;">
-                <strong>Invoice:</strong> #{{ $sale->invoice_no }}
-            </td>
-            <td style="border:none; padding:4px;">
-                <strong>Date:</strong> {{ $sale->created_at->format('d/m/Y | H:i') }}
-            </td>
-            <td style="border:none; padding:4px;">
-                <strong>Customer:</strong> {{ $sale->customer_name ?? "-" }}
-            </td>
+<div class="receipt-wrapper">
+
+    <img src="{{ asset('assets/images/logo/logo_receipt.png') }}" class="logo">
+
+    <table class="no-border">
+        <tr>
+            <td><strong>Invoice:</strong> #{{ $sale->invoice_no }}</td>
+            <td><strong>Date:</strong> {{ $sale->created_at->format('d/m/Y | H:i') }}</td>
+            <td><strong>Customer:</strong> {{ $sale->customer_name ?? "-" }}</td>
         </tr>
     </table>
 
-    <table border="1" cellpadding="6">
+    <table>
         <thead>
         <tr>
-            <th>Product</th>
-            <th>Qty</th>
-            <th>Price</th>
-            <th>Discount %</th>
-            <th>Total</th>
+            <th>Product</th><th>Qty</th><th>Price</th><th>Discount %</th><th>Total</th>
         </tr>
         </thead>
+
         <tbody>
         @php
-            $discountTotal=0;
-            $lineTotal=0;
+            $discountTotal = 0;
+            $lineTotal = 0;
         @endphp
-        @if(isset($sale->items))
-            @foreach($sale->items as $item)
-                <tr>
-                    <td style="text-align:center">{{$item->book->title ?? "-"}}</td>
-                    <td style="text-align:center">{{$item->quantity}}</td>
-                    <td style="text-align:center">{{number_format($item->unit_price,2)}}</td>
-                    <td style="text-align:center">{{$item->discount}}%</td>
-                    <td style="text-align:center">{{number_format($item->total,2)}}</td>
-                    @php
-                        $discount = $item->line_total - $item->total;
-                        $discountTotal += $discount;
-                        $lineTotal += $item->line_total;
-                    @endphp
-                </tr>
-            @endforeach
-        @endif
 
-        <tr>
-            <td colspan="4"><strong>Total</strong></td>
-            <td>{{number_format($lineTotal,2)}}/-</td>
-        </tr>
-        <tr>
-            <td colspan="4"><strong>Discount</strong></td>
-            <td>{{number_format($discountTotal,2)}}/-</td>
-        </tr>
-        <tr>
-            <td colspan="4"><strong>Grand Total</strong></td>
-            <td>{{number_format($sale->total_amount,2)}}/-</td>
-        </tr>
+        @foreach($sale->items as $item)
+            <tr>
+                <td>{{ $item->book->title ?? "-" }}</td>
+                <td>{{ $item->quantity }}</td>
+                <td>{{ number_format($item->unit_price,2) }}</td>
+                <td>{{ $item->discount }}%</td>
+                <td>{{ number_format($item->total,2) }}</td>
+            </tr>
+
+            @php
+                $discount = $item->line_total - $item->total;
+                $discountTotal += $discount;
+                $lineTotal += $item->line_total;
+            @endphp
+        @endforeach
+
+        <tr><td colspan="4"><strong>Total</strong></td><td>{{ number_format($lineTotal,2) }}</td></tr>
+        <tr><td colspan="4"><strong>Discount</strong></td><td>{{ number_format($discountTotal,2) }}</td></tr>
+        <tr><td colspan="4"><strong>Grand Total</strong></td><td>{{ number_format($sale->total_amount,2) }}</td></tr>
         </tbody>
     </table>
 
-    <p style="text-align:center; margin-top:10px;">Project of <strong>Raah Welfare Trust Foundation</strong></p>
-    <p style="text-align:center;"><strong>Address</strong>: Shama Plaza D3, G Allana Road, Kharadar</p>
-
+    <div class="footer">
+        The Project of <strong>Raah Welfare Foundation Trust</strong><br>
+        <strong>Address:</strong> Shama Plaza, Kharadar, Karachi
+    </div>
 
 </div>
 

@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="row" id="pos-app">
-        <div class="col-md-6 col-lg-4">
+        <div class="col-md-6 col-lg-5">
 
             <!-- Barcode + Customer -->
             <div class="row mb-2">
@@ -25,6 +25,12 @@
                         <option value="">General Customer</option>
                     </select>
                 </div>
+                <div class="col">
+                    <select id="status" class="form-control">
+                        <option value="open">Open</option>
+                        <option value="paid">Paid</option>
+                    </select>
+                </div>
             </div>
 
             <!-- CART -->
@@ -34,7 +40,7 @@
                     <tr>
                         <th>Books</th>
                         <th>Book Price</th>
-                        <th>Qty</th>
+                        <th>Quantity</th>
                         <th>Discount</th>
                         <th>Line Total</th>
                         <th>Action</th>
@@ -63,7 +69,7 @@
         </div>
 
         <!-- PRODUCTS -->
-        <div class="col-md-6 col-lg-8">
+        <div class="col-md-6 col-lg-7">
             <input id="search" class="form-control mb-2" placeholder="Search Product...">
 
             <div id="product-list" class="order-product row text-center"></div>
@@ -73,10 +79,16 @@
 @endsection
 @section('script')
     <script>
+        function validateNumber(input) {
+            const regex = /^-?\d*\.?\d*$/;
+            if (!regex.test(input.value)) {
+                input.value = input.value.slice(0, -1);
+            }
+        }
         $(document).ready(function () {
 
             // loadTranslations();
-            // loadCustomers();
+            loadCustomers();
             loadProducts();
             loadCart();
 
@@ -92,15 +104,15 @@
             // -----------------------------
             // LOAD CUSTOMERS
             // -----------------------------
-            // function loadCustomers() {
-            //     $.get("/admin/customers", function (customers) {
-            //         customers.forEach(c => {
-            //             $("#customer_id").append(
-            //                 `<option value="${c.id}">${c.first_name} ${c.last_name}</option>`
-            //             );
-            //         });
-            //     });
-            // }
+            function loadCustomers() {
+                $.get("http://localhost/raah_muktab/public/dashboard/get-all-customer", function (customers) {
+                    customers.data.forEach(c => {
+                        $("#customer_id").append(
+                            `<option value="${c.id}">${c.name} </option>`
+                        );
+                    });
+                });
+            }
 
             // -----------------------------
             // LOAD PRODUCTS
@@ -112,7 +124,7 @@
                     list.html("");
                     products.forEach(p => {
                         list.append(`
-                <div class="col-6 col-md-3 mb-4">
+                <div class="col-6 col-md-3 col-xl-2 mb-4">
 
                     <div class="item"  data-barcode="${p.id}">
                         <img src="{{asset('storage')}}/${p.cover_image}" class="class="img-fluid"" style=" height: 150px;" />
@@ -160,7 +172,7 @@
 
                     <td class="">
 
-                        <input type="number" class="form-control form-control-sm qty-input"
+                        <input type="text" oninput="validateNumber(this)" class="form-control form-control-sm qty-input"
                               name="qty[]" value="${quantity}" data-id="${item.id}">
 
                     </td>

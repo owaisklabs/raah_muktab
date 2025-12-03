@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -51,5 +52,13 @@ class CustomerController extends Controller
     {
         $customer->delete();
         return redirect()->route('customer.index');
+    }
+    public function getAllCustomers(){
+        $customers =  Customer::latest()->get();
+        return response()->json([
+            "status"  => JsonResponse::HTTP_OK,
+            "message" => "customers Fetch successfully",
+            "data"  => $customers,
+        ], JsonResponse::HTTP_OK);
     }
 }

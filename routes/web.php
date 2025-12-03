@@ -26,6 +26,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('book',\App\Http\Controllers\BookController::class);
         Route::resource('purchase',\App\Http\Controllers\PurchaseController::class);
         Route::resource('customer',\App\Http\Controllers\CustomerController::class);
+        Route::get('payment-receive',[\App\Http\Controllers\SaleController::class,'paymentReceive'])->name('payment-receive');
+        Route::get('get-all-customer',[\App\Http\Controllers\CustomerController::class,'getAllCustomers']);
         Route::get('get-book-by-title',[\App\Http\Controllers\BookController::class,'getBookByTitle']);
         Route::get('cart',[\App\Http\Controllers\CartController::class,'getCart']);
         Route::post('cart',[\App\Http\Controllers\CartController::class,'storeCart']);

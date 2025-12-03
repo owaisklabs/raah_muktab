@@ -15,8 +15,8 @@
                     <div>
 
                         <div><a class="logo" href="{{ route('dashboard') }}"><img class="img-fluid for-light"
-                                    src="{{ asset('assets/images/logo/login_1.png') }}" alt="looginpage"><img
-                                    class="img-fluid for-dark" src="{{ asset('assets/images/logo/login_1.png') }}"
+                                    src="{{ asset('assets/images/logo/logo_receipt.png') }}" alt="looginpage"><img
+                                    class="img-fluid for-dark" src="{{ asset('assets/images/logo/logo_receipt.png') }}"
                                     alt="looginpage"></a></div>
                         <div class="login-main">
                             <form class="theme-form" method="POST" action="{{ url('login') }}">
