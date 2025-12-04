@@ -19,7 +19,7 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $sales = Sale::has('items')->with('items')->latest()->paginate(10);
+        $sales = Sale::has('items')->with('items','customer')->latest()->paginate(10);
         return view('sales.index',compact('sales'));
     }
 
@@ -59,6 +59,7 @@ class SaleController extends Controller
                 'invoice_no'   => $invoiceNumber,
                 'sale_date'    => now(),
                 'total_amount' => $request->amount,
+                'customer_id' => $request->customer_id,
                 'created_by'   => auth()->id(),
             ]);
 

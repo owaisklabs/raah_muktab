@@ -22,6 +22,11 @@ class Sale extends Model
     }
 
 
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by');
