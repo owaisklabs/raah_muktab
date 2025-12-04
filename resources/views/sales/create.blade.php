@@ -79,6 +79,7 @@
 @endsection
 @section('script')
     <script>
+        var BASE_URL = "{{ url('') }}";
         function validateNumber(input) {
             const regex = /^-?\d*\.?\d*$/;
             if (!regex.test(input.value)) {
@@ -105,7 +106,7 @@
             // LOAD CUSTOMERS
             // -----------------------------
             function loadCustomers() {
-                $.get("http://localhost/raah_muktab/public/dashboard/get-all-customer", function (customers) {
+                $.get(BASE_URL+"/dashboard/get-all-customer", function (customers) {
                     customers.data.forEach(c => {
                         $("#customer_id").append(
                             `<option value="${c.id}">${c.name} </option>`
@@ -118,7 +119,7 @@
             // LOAD PRODUCTS
             // -----------------------------
             function loadProducts(search = "") {
-                $.get(`http://localhost/raah_muktab/public/dashboard/get-book-by-title?search=${search}`, function (res) {
+                $.get(`${BASE_URL}/dashboard/get-book-by-title?search=${search}`, function (res) {
                     const products = res.data || [];
                     const list = $("#product-list");
                     list.html("");
@@ -149,7 +150,7 @@
             // LOAD CART
             // -----------------------------
             function loadCart() {
-                $.get("http://localhost/raah_muktab/public/dashboard/cart", function (cart) {
+                $.get(BASE_URL+"/dashboard/cart", function (cart) {
                     renderCart(cart.data);
                 });
             }
@@ -205,7 +206,7 @@
 
                 if (!barcode) return;
 
-                $.post("/admin/cart", { barcode }, function () {
+                $.post(BASE_URL+"/admin/cart", { barcode }, function () {
                     $("#barcode").val("");
                     loadCart();
                 }).fail(err => {
@@ -223,7 +224,7 @@
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
                     }
                 });
-                $.post("http://localhost/raah_muktab/public/dashboard/cart", { bookId }, function () {
+                $.post(BASE_URL+"/dashboard/cart", { bookId }, function () {
                     loadCart();
                     $('.loader-wrapper').fadeOut();
                 }).fail(err => {
@@ -249,7 +250,7 @@
                     }
                 });
 
-                $.post("http://localhost/raah_muktab/public/dashboard/cart/change-qty", { product_id: id, quantity: qty,discount: discount}, function () {
+                $.post(BASE_URL+"/dashboard/cart/change-qty", { product_id: id, quantity: qty,discount: discount}, function () {
                     loadCart();
                     $('.loader-wrapper').fadeOut();
                 }).fail(err => {
@@ -269,7 +270,7 @@
                     }
                 });
                 $('.loader-wrapper').fadeIn();
-                $.post("http://localhost/raah_muktab/public/dashboard/cart/delete", { product_id: id, _method: "DELETE" }, function () {
+                $.post(BASE_URL+"/dashboard/cart/delete", { product_id: id, _method: "DELETE" }, function () {
                     loadCart();
                     $('.loader-wrapper').fadeOut();
                 });
@@ -285,7 +286,7 @@
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
                     }
                 });
-                $.post("http://localhost/raah_muktab/public/dashboard/cart/empty", { _method: "DELETE" }, function () {
+                $.post(BASE_URL+"/dashboard/cart/empty", { _method: "DELETE" }, function () {
                     loadCart();
                     $('.loader-wrapper').fadeOut();
                 });
@@ -332,13 +333,13 @@
                             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
                         }
                     });
-                    $.post("http://localhost/raah_muktab/public/dashboard/sales", {
+                    $.post(BASE_URL+"/dashboard/sales", {
                         customer_id: $("#customer_id").val(),
                         amount: result.value,
                         cartData : cartData
                     }, function (res) {
                         console.log(res.data.id)
-                        window.location.href =  `http://localhost/raah_muktab/public/dashboard/print-receipt/${res.data.id} `;
+                        window.location.href =  `${BASE_URL}/dashboard/print-receipt/${res.data.id} `;
 
                         loadCart();
 

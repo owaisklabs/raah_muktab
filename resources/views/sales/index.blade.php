@@ -130,9 +130,10 @@
 @section('script')
 
     <script>
+        var BASE_URL = "{{ url('') }}";
         loadCustomers();
         function loadCustomers() {
-            $.get("http://localhost/raah_muktab/public/dashboard/get-all-customer", function (customers) {
+            $.get(BASE_URL+"/dashboard/get-all-customer", function (customers) {
                 customers.data.forEach(c => {
                     $("#customer_id").append(
                         `<option value="${c.id}">${c.name} </option>`
