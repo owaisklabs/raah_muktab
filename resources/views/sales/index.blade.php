@@ -154,7 +154,7 @@
             }).then(result => {
                 if (!result.value) return;
                 console.log(result.value)
-                $.get(`http://localhost/raah_muktab/public/dashboard/payment-receive?sale_id=${saleId}&receive_amount=${result.value}`, function (response) {
+                $.get(`${BASE_URL}/dashboard/payment-receive?sale_id=${saleId}&receive_amount=${result.value}`, function (response) {
                     window.location.href=response.redirect_url
                 }).fail(err => {
                     Swal.fire("Error!", err.responseJSON.message, "error");
