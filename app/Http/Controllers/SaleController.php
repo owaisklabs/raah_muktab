@@ -17,9 +17,30 @@ class SaleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $sales = Sale::has('items')->with('items','customer')->latest()->paginate(10);
+
+        $query = Sale::has('items')->with('items','customer');
+        if ($request->has('query')) {
+            $filters = $request->query('query');
+
+            if (!empty($filters['invoice_no'])) {
+                $query->where('invoice_no', 'LIKE', '%' . $filters['invoice_no'] . '%');
+            }
+
+            if (!empty($filters['customer_id'])) {
+                $query->where('customer_id', $filters['customer_id']);
+            }
+
+            if (!empty($filters['from_date'])) {
+                $query->whereDate('created_at', '>=', $filters['from_date']);
+            }
+
+            if (!empty($filters['to_date'])) {
+                $query->whereDate('created_at', '<=', $filters['to_date']);
+            }
+        }
+        $sales = $query->latest()->paginate(10);
         return view('sales.index',compact('sales'));
     }
 
@@ -101,12 +122,12 @@ class SaleController extends Controller
             ], 500);
         }
     }
+
     public function printA5Receipt($id){
         $sale = Sale::with('items.book')->findOrFail($id);
         return view('reports.sale-receipt-a5',compact('sale'));
         $pdf = PDF::loadView('reports.sale-receipt-thermal', compact('sale'))
             ->setPaper('a5', 'landscape');
-
         return $pdf->stream('receipt-'.$sale->invoice_no.'.pdf'); // open in browser
     }
 
@@ -130,7 +151,7 @@ class SaleController extends Controller
      */
     public function edit(Sale $sale)
     {
-        //
+        return  view('sales.create');
     }
 
     /**
@@ -153,7 +174,12 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale)
     {
-        //
+        $sale->items()->delete();
+
+        $sale->delete();
+
+        return back()->with('success', 'Sale and related items deleted');
+
     }
     public function paymentReceive(Request $request){
         $saleId = $request->sale_id;

@@ -20,26 +20,31 @@
     <div class="container-fluid">
         {{-- <div class="row"> --}}
         <form action="#" class="row" method="GET">
-            <div class="col-md-3 mb-3">
+            <div class="col-md-2 mb-3">
                 <label for="validationCustom01">Invoice</label>
-                <input class="form-control" name="query" type="text" placeholder="First name">
+                <input class="form-control" name="query[invoice_no]" value="{{ request()->query('query')['invoice_no'] ?? '' }}" type="text" placeholder="First name">
             </div>
-            <div class="col-md-3 mb-3">
+            <input type="hidden" id="selected_customer_id"
+                   value="{{ request()->query('query')['customer_id'] ?? '' }}">
+            <div class="col-md-2 mb-3">
                 <label for="validationCustom01">Customer</label>
-                <select id="customer_id" class="form-control">
+                <select id="customer_id" name="query[customer_id]" class="form-control">
                     <option value="">Select Customer</option>
                 </select>
             </div>
             <div class="col-md-2 mb-3">
                 <label for="validationCustom02">From Date</label>
-                <input class="form-control" name="from_date" id="validationCustom02" type="date">
+                <input class="form-control" name="query[from_date]" value="{{ request()->query('query')['from_date'] ?? '' }}" id="validationCustom02" type="date">
             </div>
             <div class="col-md-2 mb-3">
                 <label for="validationCustom02">To Date</label>
-                <input class="form-control" name="to_date" id="validationCustom02" type="date">
+                <input class="form-control" name="query[to_date]" value="{{ request()->query('query')['to_date'] ?? '' }}" id="validationCustom02" type="date">
             </div>
             <div class="col-md-2 mb-3" style="margin-top: 25px;">
                 <button class="btn btn-pill btn-primary btn-air-primary btn-lg" type="submit">Search</button>
+            </div>
+            <div class="col-md-1 mb-3" style="margin-top: 25px;">
+                <button class="btn btn-pill btn-primary btn-air-primary btn-lg"  onclick="clearSearch()">Clear</button>
             </div>
         </form>
         {{-- </div> --}}
@@ -89,12 +94,12 @@
                                 <td class="">
                                     <div class="d-flex  gap-1">
                                         {{-- View --}}
-                                        <a href="{{ route('publisher.edit', $item->id) }}" class="btn btn-sm btn-primary p-1">
+                                        <a href="{{ route('sales.edit', $item->id) }}" class="btn btn-sm btn-primary p-1">
                                             <i data-feather="eye"></i>
                                         </a>
 
                                         {{-- Edit --}}
-                                        <a href="{{ route('publisher.edit', $item->id) }}" class="btn btn-sm btn-primary p-1">
+                                        <a href="{{ route('sales.edit', $item->id) }}" class="btn btn-sm btn-primary p-1">
                                             <i data-feather="edit"></i>
                                         </a>
 
@@ -106,7 +111,7 @@
                                         @endif
 
                                         {{-- Delete --}}
-                                        <form action="{{ route('publisher.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure?');" class="m-0 p-0">
+                                        <form action="{{ route('sales.destroy', $item->id) }}" method="POST"  class="m-0 p-0">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger p-1">
@@ -131,12 +136,30 @@
 
     <script>
         var BASE_URL = "{{ url('') }}";
+        function clearSearch() {
+            // Clear text input
+            $("input[name='query[invoice_no]']").val("");
+
+            // Clear customer dropdown
+            $("#customer_id").val("");
+
+            // Clear dates
+            $("input[name='query[from_date]']").val("");
+            $("input[name='query[to_date]']").val("");
+
+            // Submit the form after clearing
+            $("form").submit();
+        }
         loadCustomers();
         function loadCustomers() {
-            $.get(BASE_URL+"/dashboard/get-all-customer", function (customers) {
+            $.get(BASE_URL + "/dashboard/get-all-customer", function (customers) {
+
+                let selectedCustomer = $("#selected_customer_id").val();
+
                 customers.data.forEach(c => {
+                    let selected = (selectedCustomer == c.id) ? 'selected' : '';
                     $("#customer_id").append(
-                        `<option value="${c.id}">${c.name} </option>`
+                        `<option value="${c.id}" ${selected}>${c.name}</option>`
                     );
                 });
             });
