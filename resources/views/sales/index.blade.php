@@ -169,20 +169,82 @@
             const receiveAmount = $(this).data("receive-amount");
             console.log(saleId,receiveAmount)
             Swal.fire({
-                title:  "Received Amount",
-                input: "text",
-                inputValue: receiveAmount,
+                title: "Received Amount",
+                html: `
+        <label>Amount</label>
+        <input id="amount" class="swal2-input" type="text" value="${receiveAmount}">
+
+        <label>Payment Type</label>
+        <select id="payment_type" class="swal2-select">
+            <option value="cash">Cash</option>
+            <option value="online">Online</option>
+            <option value="cheque">Cheque</option>
+        </select>
+
+        <div id="extra_field_wrapper" style="display:none; margin-top:10px;">
+            <label id="extra_label"></label>
+            <input id="extra_value" class="swal2-input" type="text">
+        </div>
+<div id="remarks"  margin-top:10px;">
+            <label id=""> Reamrks</label>
+            <input id="remarks" class="swal2-input" type="text">
+        </div>
+    `,
                 showCancelButton: true,
                 confirmButtonText: "Confirm",
+
+                didOpen: () => {
+                    const paymentType = document.getElementById("payment_type");
+                    const wrapper = document.getElementById("extra_field_wrapper");
+                    const label = document.getElementById("extra_label");
+
+                    paymentType.addEventListener("change", function () {
+                        if (this.value === "online") {
+                            wrapper.style.display = "block";
+                            label.innerText = "Acc #";
+                        }
+                        else if (this.value === "cheque") {
+                            wrapper.style.display = "block";
+                            label.innerText = "cheque #";
+                        }
+                        else {
+                            wrapper.style.display = "none";
+                        }
+                    });
+                },
+
+                preConfirm: () => {
+                    return {
+                        amount: document.getElementById("amount").value,
+                        payment_type: document.getElementById("payment_type").value,
+                        extra: document.getElementById("extra_value").value || ""
+                    };
+                }
             }).then(result => {
                 if (!result.value) return;
-                console.log(result.value)
-                $.get(`${BASE_URL}/dashboard/payment-receive?sale_id=${saleId}&receive_amount=${result.value}`, function (response) {
-                    window.location.href=response.redirect_url
-                }).fail(err => {
-                    Swal.fire("Error!", err.responseJSON.message, "error");
-                });
-            })
+
+                const amount = result.value.amount;
+                const paymentType = result.value.payment_type;
+                const extra = result.value.extra;
+
+                console.log("Amount:", amount);
+                console.log("Payment Type:", paymentType);
+                console.log("Extra Value:", extra);
+
+                $.get(`${BASE_URL}/dashboard/payment-receive`, {
+                    sale_id: saleId,
+                    receive_amount: amount,
+                    payment_type: paymentType,
+                    extra_value: extra    // account number or cheque number
+                }, function (response) {
+                    window.location.href = response.redirect_url;
+                })
+                    .fail(err => {
+                        Swal.fire("Error!", err.responseJSON.message, "error");
+                    });
+            });
+
+
         })
 
     </script>

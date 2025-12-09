@@ -67,12 +67,12 @@
                                 <td>{{$item->total_amount}}</td>
                                 <td>{{$item->status}}</td>
                                 <td class="d-flex align-items-center gap-2">
-                                    <a href="{{ route('publisher.edit', $item->id) }}" class="btn btn-sm btn-primary p-1 d-flex align-items-center justify-content-center">
+                                    <a href="{{ route('purchase.edit', $item->id) }}" class="btn btn-sm btn-primary p-1 d-flex align-items-center justify-content-center">
                                         <i data-feather="eye"></i>
                                     </a>
 
                                     {{-- Delete --}}
-                                    <form action="{{ route('publisher.destroy', $item->id) }}" method="POST"
+                                    <form action="{{ route('purchase.destroy', $item->id) }}" method="POST"
                                           onsubmit="return confirm('Are you sure you want to delete this purchase?');" class="m-0 p-0">
                                         @csrf
                                         @method('DELETE')
@@ -83,7 +83,7 @@
 
                                     {{-- Edit --}}
 
-                                    <a href="{{ route('publisher.edit', $item->id) }}" class="btn btn-sm btn-primary p-1 d-flex align-items-center justify-content-center">
+                                    <a href="{{ route('purchase.edit', $item->id) }}" class="btn btn-sm btn-primary p-1 d-flex align-items-center justify-content-center">
                                         <i data-feather="edit"></i>
                                     </a>
 

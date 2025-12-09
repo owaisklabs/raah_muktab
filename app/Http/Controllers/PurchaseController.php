@@ -44,11 +44,11 @@ class PurchaseController extends Controller
     {
         $totalAmount = 0;
         $purchase = Purchase::create([
-            'supplier_id'   => $request->supplier_id,
-            'invoice_no'    => $request->invoice_no,
+            'supplier_id' => $request->supplier_id,
+            'invoice_no' => $request->invoice_no,
             'purchase_date' => $request->purchase_date,
-            'status'        => 'pending',
-            'created_by'    => auth()->id(),
+            'status' => $request->status,
+            'created_by' => auth()->id(),
         ]);
         foreach ($request->items as $item) {
 
@@ -103,7 +103,9 @@ class PurchaseController extends Controller
      */
     public function edit(Purchase $purchase)
     {
-        return view('purchase.update',compact('purchase'));
+        $suppliers = Supplier::all();
+        $books = Book::all();
+        return view('purchase.update', compact('purchase', 'suppliers', 'books'));
     }
 
     /**
@@ -115,7 +117,14 @@ class PurchaseController extends Controller
      */
     public function update(Request $request, Purchase $purchase)
     {
-        //
+        $purchase->update([
+                'supplier_id' => $request->supplier_id,
+                'invoice_no' => $request->invoice_no,
+                'purchase_date' => $request->purchase_date,
+                'status' => $request->status,
+            ]
+        );
+        return redirect()->route('purchase.index');
     }
 
     /**

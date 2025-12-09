@@ -20,14 +20,14 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-2 mb-3">
                         <label for="sku">Invoice # <span class="text-danger">*</span></label>
                         <input class="form-control abc" id="sku" type="text" name="invoice_no" placeholder="SKU" required=""
                                data-bs-original-title="" title="">
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="bar_code">Purchase date <span class="text-danger">*</span></label>
-                        <input class="form-control" id="bar_code" type="date" value="{{ now()->format('Y-m-d') }}"
+                    <div class="col-md-2 mb-3">
+                        <label for="purchase_date">Purchase date <span class="text-danger">*</span></label>
+                        <input class="form-control" id="purchase_date" type="date" value="{{ now()->format('Y-m-d') }}"
                                name="purchase_date" placeholder="Barcode" required="" data-bs-original-title="" title="">
                     </div>
 
@@ -43,13 +43,29 @@
                         </select>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="publisher_id">Status <span class="text-danger">*</span></label>
+                        <label for="payment_type">Payment type <span class="text-danger">*</span></label>
+                        <select id="payment_type" required class="form-control " name="payment_type">
+                            <option value="">Select Payment type</option>
+                            <option value="cash">Cash</option>
+                            <option value="online">Online</option>
+                            <option value="cheque">Cheque</option>
 
-                        <select id=" publisher_id" required class="form-control " name="status">
+
+                        </select>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="status">Status <span class="text-danger">*</span></label>
+
+                        <select id=" status" required class="form-control " name="status">
                             <option value="">Select Status</option>
                             <option value="received">Received</option>
                             <option value="pending">Pending</option>
                         </select>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="remarks">Remarks <span class="text-danger">*</span></label>
+
+                        <textarea class="form-control textarea" name="remarks" rows="3" cols="50" placeholder="Remarks"></textarea>
                     </div>
                 </div>
             </div>
