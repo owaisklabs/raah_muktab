@@ -171,25 +171,25 @@
             Swal.fire({
                 title: "Received Amount",
                 html: `
-        <label>Amount</label>
-        <input id="amount" class="swal2-input" type="text" value="${receiveAmount}">
+                    <label>Amount</label>
+                    <input id="amount" class="swal2-input" type="text" value="${receiveAmount}">
 
-        <label>Payment Type</label>
-        <select id="payment_type" class="swal2-select">
-            <option value="cash">Cash</option>
-            <option value="online">Online</option>
-            <option value="cheque">Cheque</option>
-        </select>
+                    <label>Payment Type</label>
+                    <select id="payment_type" class="swal2-select">
+                        <option value="cash">Cash</option>
+                        <option value="online">Online</option>
+                        <option value="cheque">Cheque</option>
+                    </select>
 
-        <div id="extra_field_wrapper" style="display:none; margin-top:10px;">
-            <label id="extra_label"></label>
-            <input id="extra_value" class="swal2-input" type="text">
-        </div>
-<div id="remarks"  margin-top:10px;">
-            <label id=""> Reamrks</label>
-            <input id="remarks" class="swal2-input" type="text">
-        </div>
-    `,
+                    <div id="extra_field_wrapper" style="display:none; margin-top:10px;">
+                        <label id="extra_label"></label>
+                        <input id="extra_value" class="swal2-input" type="text">
+                    </div>
+                    <div id="remarks"  margin-top:10px;">
+                        <label id=""> Reamrks</label>
+                        <input id="extra_remarks" class="swal2-input" type="text">
+                    </div>
+                `,
                 showCancelButton: true,
                 confirmButtonText: "Confirm",
 
@@ -217,7 +217,8 @@
                     return {
                         amount: document.getElementById("amount").value,
                         payment_type: document.getElementById("payment_type").value,
-                        extra: document.getElementById("extra_value").value || ""
+                        extra: document.getElementById("extra_value").value || "",
+                        extra_remarks: document.getElementById("extra_remarks").value || ""
                     };
                 }
             }).then(result => {
@@ -226,16 +227,19 @@
                 const amount = result.value.amount;
                 const paymentType = result.value.payment_type;
                 const extra = result.value.extra;
+                const remarks = result.value.extra_remarks;
 
                 console.log("Amount:", amount);
+                console.log("sale Id:", saleId);
                 console.log("Payment Type:", paymentType);
                 console.log("Extra Value:", extra);
-
+                console.log("remarks:", remarks);
                 $.get(`${BASE_URL}/dashboard/payment-receive`, {
                     sale_id: saleId,
                     receive_amount: amount,
                     payment_type: paymentType,
-                    extra_value: extra    // account number or cheque number
+                    extra_value: extra,    // account number or cheque number
+                    remark: remarks    // account number or cheque number
                 }, function (response) {
                     window.location.href = response.redirect_url;
                 })

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Inventory;
 use App\Models\Sale;
 use App\Models\SaleItem;
+use App\Models\SalesPaymentDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PDF;
 
@@ -182,7 +184,9 @@ class SaleController extends Controller
 
     }
     public function paymentReceive(Request $request){
+
         $saleId = $request->sale_id;
+
         $receiveAmount = $request->receive_amount;
 
         $sale = Sale::findOrFail($saleId);
@@ -196,6 +200,20 @@ class SaleController extends Controller
         }
 
         $sale->save();
+
+        $salesDetails = new SalesPaymentDetail();
+        $salesDetails->sales_id = $saleId ;
+        $salesDetails->amount_received = $receiveAmount ;
+        $salesDetails->payment_type = $request->payment_type ;
+        $salesDetails->remarks = $request->remark ;
+        if($request->payment_type == "online"){
+            $salesDetails->account_number = $request->extra_value ;
+        }
+        if($request->payment_type == "cheque"){
+            $salesDetails->cheque_number = $request->extra_value ;
+        }
+        $salesDetails->created_by = Auth::id() ;
+        $salesDetails->save();
 
         return response()->json([
             'success' => true,
