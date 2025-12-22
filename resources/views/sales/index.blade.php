@@ -94,7 +94,7 @@
                                 <td class="">
                                     <div class="d-flex  gap-1">
                                         {{-- View --}}
-                                        <a href="{{ route('sales.edit', $item->id) }}" class="btn btn-sm btn-primary p-1">
+                                        <a href="{{ route('sales.show', $item->id) }}" class="btn btn-sm btn-primary p-1">
                                             <i data-feather="eye"></i>
                                         </a>
 
@@ -122,7 +122,12 @@
                                 </td>
                             </tr>
                         @endforeach
-
+                        <tr>
+                            <th colspan="4">Total</td>
+                            <th >{{number_format($sales->sum('total_amount'), 2)}}</td>
+                            <th >{{number_format($sales->sum('paid_amount'), 2)}}</td>
+                            <th >{{number_format($sales->sum('total_amount') - $sales->sum('paid_amount'), 2)}}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -234,7 +239,7 @@
                 console.log("Payment Type:", paymentType);
                 console.log("Extra Value:", extra);
                 console.log("remarks:", remarks);
-                $.get(`${BASE_URL}/dashboard/payment-receive`, {
+                $.get(`${BASE_URL}/dashboard/payment-receive`, {    
                     sale_id: saleId,
                     receive_amount: amount,
                     payment_type: paymentType,

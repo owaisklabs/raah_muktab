@@ -1,12 +1,32 @@
 /node_modules
+/vendor
+
+# Laravel environment files
+.env
+.env.*
+!.env.example
+
+# Laravel storage (runtime files)
+/storage/*
+!/storage/app/
+!/storage/app/public/
+!/storage/framework/
+!/storage/framework/.gitignore
+!/storage/logs/
+!/storage/logs/.gitignore
+
+# Compiled assets / dev files
 /public/hot
 /public/storage
+
+# Keys & cache
 /storage/*.key
-/vendor
-.env
-.env.backup
 .phpunit.result.cache
+
+# Homestead
 Homestead.json
 Homestead.yaml
+
+# Logs
 npm-debug.log
 yarn-error.log

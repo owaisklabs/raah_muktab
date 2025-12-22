@@ -136,13 +136,13 @@ class SaleController extends Controller
 
     /**
      * Display the specified resource.
-     *
+     
      * @param  \App\Models\Sale  $sale
      * @return \Illuminate\Http\Response
      */
     public function show(Sale $sale)
     {
-        //
+        return view('sales.detail',compact('sale'));
     }
 
     /**

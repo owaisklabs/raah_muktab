@@ -31,4 +31,8 @@ class Sale extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+    public function salesPaymentsDetails()
+    {
+        return $this->hasMany(SalesPaymentDetail::class, 'sales_id');
+    }
 }
