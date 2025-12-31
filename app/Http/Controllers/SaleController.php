@@ -22,7 +22,8 @@ class SaleController extends Controller
     public function index(Request $request)
     {
 
-        $query = Sale::has('items')->with('items','customer');
+        $query = Sale::has('items')->with('items', 'customer');
+
         if ($request->has('query')) {
             $filters = $request->query('query');
 
@@ -42,8 +43,17 @@ class SaleController extends Controller
                 $query->whereDate('created_at', '<=', $filters['to_date']);
             }
         }
-        $sales = $query->latest()->paginate(10);
-        return view('sales.index',compact('sales'));
+
+        $totals = (clone $query)
+            ->selectRaw('
+                SUM(total_amount) as total_amount_sum,
+                SUM(paid_amount) as paid_amount_sum
+            ')
+            ->first();
+
+        $sales = $query->latest()->paginate(50);
+
+            return view('sales.index',compact('sales','totals'));
     }
 
     /**

@@ -49,9 +49,49 @@
         </form>
         {{-- </div> --}}
         <div class="row">
+        <div class="col-xl-4  chart_data_right box-col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="media align-items-center">
+                            <div class="media-body right-chart-content">
+                                <h4>{{number_format($totals->total_amount_sum,2)}}</h4>
+                                <span>Total Sales</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4  chart_data_right box-col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="media align-items-center">
+                            <div class="media-body right-chart-content">
+                                <h4>{{number_format($totals->paid_amount_sum,2)}}</h4>
+                                <span>Total Amount Recived</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4  chart_data_right box-col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="media align-items-center">
+                            <div class="media-body right-chart-content">
+                                <h4>{{number_format($totals->total_amount_sum-$totals->paid_amount_sum,2)}}</h4>
+                                <span>Total Amount Balance</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
 
             <div class="col-sm-12">
-
                 <div class="table-responsive">
                     <table class="table table-border-vertical " style="background-color: white;">
                         <thead>

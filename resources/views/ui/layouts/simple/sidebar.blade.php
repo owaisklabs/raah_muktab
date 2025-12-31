@@ -89,6 +89,16 @@
                         </ul>
                     </li>
                     <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title{{ request()->routeIs(['expenses.index','expenses.create']) ? 'active' : '' }} " href="#">
+                            <i data-feather="shopping-cart"></i><span>Expenses</span>
+                            <div class="according-menu"><i class="fa fa-angle-{{request()->routeIs(['expenses.index','expenses.create']) ? 'down' : 'right' }}"></i></div>
+                        </a>
+                        <ul class="sidebar-submenu" style="display: {{request()->routeIs(['expenses.index','expenses.create'])  ? 'block' : 'none;' }}">
+                            <li><a href="{{route('expenses.index')}}" class="{{ request()->routeIs(['expenses.index']) ? 'active' : '' }}">Expenses</a></li>
+                            <li><a href="{{route('expenses.create')}}" class="{{ request()->routeIs(['expenses.create']) ? 'active' : '' }}">Create Expenses</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title{{ request()->routeIs(['customer.index','customer.create']) ? 'active' : '' }} " href="#">
                             <i data-feather="shopping-cart"></i><span>Customer</span>
                             <div class="according-menu"><i class="fa fa-angle-{{request()->routeIs(['customer.index','customer.create']) ? 'down' : 'right' }}"></i></div>
