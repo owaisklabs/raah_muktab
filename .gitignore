@@ -1,32 +1,18 @@
+/.phpunit.cache
 /node_modules
-/vendor
-
-# Laravel environment files
-.env
-.env.*
-!.env.example
-
-# Laravel storage (runtime files)
-!/storage/*
-!/storage/app/
-!/storage/app/public/
-!/storage/framework/
-!/storage/framework/.gitignore
-!/storage/logs/
-!/storage/logs/.gitignore
-
-# Compiled assets / dev files
+/public/build
 /public/hot
 /public/storage
-
-# Keys & cache
 /storage/*.key
+/vendor
+.env.backup
+.env.production
 .phpunit.result.cache
-
-# Homestead
 Homestead.json
 Homestead.yaml
-
-# Logs
+auth.json
 npm-debug.log
 yarn-error.log
+/.fleet
+/.idea
+/.vscode
