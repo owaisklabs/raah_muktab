@@ -8,6 +8,7 @@ use App\Models\Purchase;
 use App\Models\PurchaseItem;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PurchaseController extends Controller
 {
@@ -16,10 +17,34 @@ class PurchaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $purchases = Purchase::latest()->paginate(10);
-        return view('purchase.index',compact('purchases'));
+        $query = Purchase::with('supplier','items');
+        if ($request->has('query')) {
+            $filters = $request->query('query');
+
+            if (!empty($filters['invoice_no'])) {
+                $query->where('invoice_no', 'LIKE', '%' . $filters['invoice_no'] . '%');
+            }
+
+                if (!empty($filters['book_id'])) {
+                    $query->whereHas('items', function ($query) use ($filters) {
+                        dd($filters['book_id']);
+                        $query->where('book_id', $filters['book_id']);
+                    });
+                }
+
+            if (!empty($filters['from_date'])) {
+                $query->whereDate('created_at', '>=', $filters['from_date']);
+            }
+
+            if (!empty($filters['to_date'])) {
+                $query->whereDate('created_at', '<=', $filters['to_date']);
+            }
+        }
+        $purchases = $query->latest()->paginate(50);
+        $books = Book::all();
+        return view('purchase.index',compact('purchases', 'books'));
     }
 
     /**
@@ -45,7 +70,7 @@ class PurchaseController extends Controller
         DB::transaction(function () use ($request) {
 
             $totalAmount = 0;
-        
+
             $purchase = Purchase::create([
                 'supplier_id' => $request->supplier_id,
                 'invoice_no' => $request->invoice_no,
@@ -55,12 +80,12 @@ class PurchaseController extends Controller
                 'expense' => $request->expense,
                 'created_by' => auth()->id(),
             ]);
-        
+
             foreach ($request->items as $item) {
-        
+
                 $lineTotal = $item['quantity'] * $item['unit_cost'];
                 $totalAmount += $lineTotal;
-        
+
                 PurchaseItem::create([
                     'purchase_id' => $purchase->id,
                     'book_id' => $item['book_id'],
@@ -68,18 +93,18 @@ class PurchaseController extends Controller
                     'unit_cost' => $item['unit_cost'],
                     'line_total' => $lineTotal,
                 ]);
-        
+
                 $inventory = Inventory::firstOrCreate(
                     ['book_id' => $item['book_id']],
                     ['quantity' => 0, 'reorder_level' => 10]
                 );
-        
+
                 $inventory->increment('quantity', $item['quantity']);
             }
-        
+
             $purchase->update(['total_amount' => $totalAmount]);
         });
-        
+
 
     }
 

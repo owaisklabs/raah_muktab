@@ -53,7 +53,7 @@ class SaleController extends Controller
 
         $sales = $query->latest()->paginate(50);
 
-            return view('sales.index',compact('sales','totals'));
+        return view('sales.index', compact('sales', 'totals'));
     }
 
     /**
@@ -63,20 +63,20 @@ class SaleController extends Controller
      */
     public function create()
     {
-        return  view('sales.create');
+        return view('sales.create');
     }
 
 
     public function store(Request $request)
     {
         $request->validate([
-            'amount'       => 'required|numeric|min:0',
-            'cartData'     => 'required|array|min:1',
-            'cartData.*.book_id'  => 'required|integer|exists:books,id',
-            'cartData.*.qty'       => 'required|numeric|min:1',
-            'cartData.*.price'     => 'required|numeric|min:0',
-            'cartData.*.discount'  => 'nullable|numeric|min:0|max:100',
-            'cartData.*.line_total'=> 'required|numeric|min:0',
+            'amount' => 'required|numeric|min:0',
+            'cartData' => 'required|array|min:1',
+            'cartData.*.book_id' => 'required|integer|exists:books,id',
+            'cartData.*.qty' => 'required|numeric|min:1',
+            'cartData.*.price' => 'required|numeric|min:0',
+            'cartData.*.discount' => 'nullable|numeric|min:0|max:100',
+            'cartData.*.line_total' => 'required|numeric|min:0',
         ]);
 
         DB::beginTransaction();
@@ -84,35 +84,35 @@ class SaleController extends Controller
         try {
 
             $lastSale = Sale::latest('id')->first();
-            $nextId   = $lastSale ? $lastSale->id + 1 : 1;
+            $nextId = $lastSale ? $lastSale->id + 1 : 1;
 
             $invoiceNumber = str_pad($nextId, 6, '0', STR_PAD_LEFT);
 
             $sale = Sale::create([
-                'invoice_no'   => $invoiceNumber,
-                'sale_date'    => now(),
+                'invoice_no' => $invoiceNumber,
+                'sale_date' => now(),
                 'total_amount' => $request->amount,
                 'customer_id' => $request->customer_id,
-                'created_by'   => auth()->id(),
+                'created_by' => auth()->id(),
             ]);
 
             foreach ($request->cartData as $item) {
 
-                $quantity    = $item['qty'];
-                $unitPrice   = $item['price'];
-                $discount    = $item['discount'] ?? 0;
+                $quantity = $item['qty'];
+                $unitPrice = $item['price'];
+                $discount = $item['discount'] ?? 0;
 
                 $afterDiscount = $unitPrice * (1 - ($discount / 100));
 
                 SaleItem::create([
-                    'sale_id'     => $sale->id,
-                    'book_id'     => $item['book_id'],
-                    'quantity'    => $quantity,
-                    'unit_price'  => $unitPrice,
-                    'sale_price'  => $afterDiscount,
-                    'line_total'  => $quantity * $unitPrice,
-                    'discount'    => $discount,
-                    'total'       => $item['line_total'],
+                    'sale_id' => $sale->id,
+                    'book_id' => $item['book_id'],
+                    'quantity' => $quantity,
+                    'unit_price' => $unitPrice,
+                    'sale_price' => $afterDiscount,
+                    'line_total' => $quantity * $unitPrice,
+                    'discount' => $discount,
+                    'total' => $item['line_total'],
                 ]);
                 $inventory = Inventory::where('book_id', $item['book_id'])->first();
                 if ($inventory) {
@@ -130,47 +130,47 @@ class SaleController extends Controller
             DB::rollBack();
             return response()->json([
                 'message' => 'error',
-                'error'   => $e->getMessage()
+                'error' => $e->getMessage()
             ], 500);
         }
     }
 
-    public function printA5Receipt($id){
+    public function printA5Receipt($id)
+    {
         $sale = Sale::with('items.book')->findOrFail($id);
-        return view('reports.sale-receipt-a5',compact('sale'));
+        return view('reports.sale-receipt-a5', compact('sale'));
         $pdf = PDF::loadView('reports.sale-receipt-thermal', compact('sale'))
             ->setPaper('a5', 'landscape');
-        return $pdf->stream('receipt-'.$sale->invoice_no.'.pdf'); // open in browser
+        return $pdf->stream('receipt-' . $sale->invoice_no . '.pdf'); // open in browser
     }
 
 
     /**
      * Display the specified resource.
-     
-     * @param  \App\Models\Sale  $sale
+     * @param \App\Models\Sale $sale
      * @return \Illuminate\Http\Response
      */
     public function show(Sale $sale)
     {
-        return view('sales.detail',compact('sale'));
+        return view('sales.detail', compact('sale'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Sale  $sale
+     * @param \App\Models\Sale $sale
      * @return \Illuminate\Http\Response
      */
     public function edit(Sale $sale)
     {
-        return  view('sales.create');
+        return view('sales.create');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Sale  $sale
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Sale $sale
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Sale $sale)
@@ -181,7 +181,7 @@ class SaleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Sale  $sale
+     * @param \App\Models\Sale $sale
      * @return \Illuminate\Http\Response
      */
     public function destroy(Sale $sale)
@@ -193,7 +193,9 @@ class SaleController extends Controller
         return back()->with('success', 'Sale and related items deleted');
 
     }
-    public function paymentReceive(Request $request){
+
+    public function paymentReceive(Request $request)
+    {
 
         $saleId = $request->sale_id;
 
@@ -212,17 +214,17 @@ class SaleController extends Controller
         $sale->save();
 
         $salesDetails = new SalesPaymentDetail();
-        $salesDetails->sales_id = $saleId ;
-        $salesDetails->amount_received = $receiveAmount ;
-        $salesDetails->payment_type = $request->payment_type ;
-        $salesDetails->remarks = $request->remark ;
-        if($request->payment_type == "online"){
-            $salesDetails->account_number = $request->extra_value ;
+        $salesDetails->sales_id = $saleId;
+        $salesDetails->amount_received = $receiveAmount;
+        $salesDetails->payment_type = $request->payment_type;
+        $salesDetails->remarks = $request->remark;
+        if ($request->payment_type == "online") {
+            $salesDetails->account_number = $request->extra_value;
         }
-        if($request->payment_type == "cheque"){
-            $salesDetails->cheque_number = $request->extra_value ;
+        if ($request->payment_type == "cheque") {
+            $salesDetails->cheque_number = $request->extra_value;
         }
-        $salesDetails->created_by = Auth::id() ;
+        $salesDetails->created_by = Auth::id();
         $salesDetails->save();
 
         return response()->json([

@@ -19,10 +19,15 @@
 @section('content')
     <div class="container-fluid">
         {{-- <div class="row"> --}}
-        <form action="#" class="row" method="GET">
+        <form action="{{route('purchase.index')}}" class="row" method="GET">
             <div class="col-md-3 mb-3">
-                <label for="validationCustom01">Query</label>
-                <input class="form-control" name="query" type="text" placeholder="First name" required="">
+                <label for="validationCustom01">Supplier</label>
+                <select name="query[book_id]" class="form-control">
+                    <option value="">Select Book</option>
+                    @foreach($books as $item)
+                        <option value="{{$item->id}}">{{$item->title}}</option>
+                    @endforeach
+                </select>
                 <div class="valid-feedback">Looks good!</div>
             </div>
             <div class="col-md-3 mb-3">
@@ -39,7 +44,7 @@
         </form>
         <div class="row">
 
-            
+
 
                 <div class="table-responsive">
                     <table class="table table-border-vertical " style="background-color: white;">
@@ -52,6 +57,7 @@
                             <th scope="col">Purchase Amount</th>
                             <th scope="col">Expense</th>
                             <th scope="col">Total Amount</th>
+                            <th scope="col">Items</th>
                             <th scope="col">Status</th>
 
                             <th scope="col">Action</th>
@@ -69,16 +75,22 @@
                                 <td>{{number_format($item->expense, 2)}}</td>
                                 <td>{{number_format($item->total_amount + $item->expense, 2)}}</td>
                                 <td>
-                                    <span class="badge bg-{{ 
-                                        $item->status == 'pending' ? 'secondary' : 
-                                        ($item->status == 'received' ? 'success' : 
+                                    @foreach($item->items as $book)
+                                        {{$book->book->title ?? '-'}},
+                                    @endforeach
+                                </td>
+                                <td>
+                                    <span class="badge bg-{{
+                                        $item->status == 'pending' ? 'secondary' :
+                                        ($item->status == 'received' ? 'success' :
                                         ($item->status == 'cancelled' ? 'warning' : 'dark'))
                                     }}">
                                         {{ ucfirst($item->status) }}
                                     </span>
                                 </td>
-                                @php 
-                                    $balance= $item->total_amount - $item->paid_amount; 
+
+                                @php
+                                    $balance= $item->total_amount - $item->paid_amount;
                                 @endphp
                                 <td class="d-flex align-items-center gap-2">
                                     <a href="{{ route('purchase.show', $item->id) }}" class="btn btn-sm btn-primary p-1 d-flex align-items-center justify-content-center">
@@ -114,10 +126,10 @@
                             <th >{{number_format($purchases->sum('total_amount') + $purchases->sum('expense'), 2)}}</td>
                         </tr>
                         </tbody>
-                        
+
                     </table>
                 </div>
-                                
+
         </div>
     </div>
 @endsection
@@ -194,7 +206,7 @@
                 console.log("Payment Type:", paymentType);
                 console.log("Extra Value:", extra);
                 console.log("remarks:", remarks);
-                $.get(`${BASE_URL}/dashboard/payment-receive`, {    
+                $.get(`${BASE_URL}/dashboard/payment-receive`, {
                     sale_id: saleId,
                     receive_amount: amount,
                     payment_type: paymentType,

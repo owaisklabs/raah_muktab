@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('cart/delete',[\App\Http\Controllers\CartController::class,'delete'])->name('delete-cart');
         Route::post('cart/change-qty',[\App\Http\Controllers\CartController::class,'changeQty'])->name('change-qty');
         Route::get('print-receipt/{id}',[\App\Http\Controllers\SaleController::class,'printA5Receipt'])->name('print-receipt');
+        Route::get('reports',[\App\Http\Controllers\ReportingController::class,'reports']);
     });
 });
 Auth::routes();

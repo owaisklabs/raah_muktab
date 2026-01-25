@@ -7,7 +7,7 @@
 !.env.example
 
 # Laravel storage (runtime files)
-/storage/*
+!/storage/*
 !/storage/app/
 !/storage/app/public/
 !/storage/framework/
