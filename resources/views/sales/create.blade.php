@@ -1,5 +1,4 @@
 @extends('ui.layouts.simple.master')
-@extends('ui.layouts.simple.master')
 @section('title', 'Bootstrap Border Table')
 
 @section('css')
