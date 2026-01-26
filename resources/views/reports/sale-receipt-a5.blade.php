@@ -63,7 +63,7 @@
         <tr>
             <td><strong>Invoice:</strong> #{{ $sale->invoice_no }}</td>
             <td><strong>Date:</strong> {{ $sale->created_at->format('d/m/Y | H:i') }}</td>
-            <td><strong>Customer:</strong> {{ $sale->customer_name ?? "-" }}</td>
+            <td><strong>Customer:</strong> {{ $sale->customer->name ?? "-" }}</td>
         </tr>
     </table>
 
@@ -78,8 +78,8 @@
         @php
             $discountTotal = 0;
             $lineTotal = 0;
+            $totalQuantity = 0;
         @endphp
-
         @foreach($sale->items as $item)
             <tr>
                 <td>{{ $item->book->title ?? "-" }}</td>
@@ -93,9 +93,11 @@
                 $discount = $item->line_total - $item->total;
                 $discountTotal += $discount;
                 $lineTotal += $item->line_total;
+                $totalQuantity += $item->quantity;
             @endphp
         @endforeach
 
+        <tr><td colspan="1"><strong>Total Quantity</strong></td><td> <strong> {{ $totalQuantity }}<strong></td></tr>
         <tr><td colspan="4"><strong>Total</strong></td><td>{{ number_format($lineTotal,2) }}</td></tr>
         <tr><td colspan="4"><strong>Discount</strong></td><td>{{ number_format($discountTotal,2) }}</td></tr>
         <tr><td colspan="4"><strong>Grand Total</strong></td><td>{{ number_format($sale->total_amount,2) }}</td></tr>

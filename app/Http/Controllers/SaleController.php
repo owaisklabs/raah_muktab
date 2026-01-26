@@ -137,7 +137,7 @@ class SaleController extends Controller
 
     public function printA5Receipt($id)
     {
-        $sale = Sale::with('items.book')->findOrFail($id);
+        $sale = Sale::with('items.book','customer')->findOrFail($id);
         return view('reports.sale-receipt-a5', compact('sale'));
         $pdf = PDF::loadView('reports.sale-receipt-thermal', compact('sale'))
             ->setPaper('a5', 'landscape');
