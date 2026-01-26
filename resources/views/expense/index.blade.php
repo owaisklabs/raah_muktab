@@ -57,9 +57,16 @@
                         </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $total_expense = 0;
+                            @endphp
                         @foreach($expenses as $item)
 
                         <tr>
+                            @php
+                                
+                                $total_expense += $item->amount;
+                            @endphp
                             <th scope="row">{{$item->id}}</th>
                             <td>{{$item->title}}</td>
                             <td>{{$item->expense_type}}</td>
@@ -85,6 +92,12 @@
                             </td>
                         </tr>
                         @endforeach
+                        <tr>
+                            <td colspan="3">Total Expense</td>
+                            <td>{{number_format($total_expense,2)}}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                         </tbody>
                     </table>
                     {{ $expenses->links('pagination::bootstrap-5')}}

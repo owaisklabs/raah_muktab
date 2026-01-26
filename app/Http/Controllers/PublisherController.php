@@ -14,7 +14,7 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        $publishers = Publisher::latest()->paginate(25);
+        $publishers = Publisher::latest()->paginate(50);
         return view('publisher.index',compact('publishers'));
     }
 

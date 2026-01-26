@@ -14,7 +14,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $authors = Author::latest()->paginate(25);
+        $authors = Author::latest()->paginate(50);
         return view('author.index',compact('authors'));
     }
 
