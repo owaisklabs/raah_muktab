@@ -94,6 +94,7 @@ class SaleController extends Controller
                 'total_amount' => $request->amount,
                 'customer_id' => $request->customer_id,
                 'created_by' => auth()->id(),
+                'status' => $request->sales_status,
             ]);
 
             foreach ($request->cartData as $item) {

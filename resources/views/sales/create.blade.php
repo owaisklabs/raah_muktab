@@ -335,6 +335,7 @@
                     });
                     $.post(BASE_URL+"/dashboard/sales", {
                         customer_id: $("#customer_id").val(),
+                        sales_status:$("#status").val(),
                         amount: result.value,
                         cartData : cartData
                     }, function (res) {
