@@ -57,7 +57,8 @@
                     <div class="card-body">
                         <div class="media align-items-center">
                             <div class="media-body right-chart-content">
-                                <h4>{{number_format($totals->total_amount_sum,2)}}</h4>
+{{--                                @dd($totals)--}}
+                                <h4>{{number_format($totals['total_amount_sum'],2)}}</h4>
                                 <span>Total Sales</span>
                             </div>
 
@@ -70,7 +71,7 @@
                     <div class="card-body">
                         <div class="media align-items-center">
                             <div class="media-body right-chart-content">
-                                <h4>{{number_format($totals->paid_amount_sum,2)}}</h4>
+                                <h4>{{number_format($totals['paid_amount_sum'],2)}}</h4>
                                 <span>Total Amount Recived</span>
                             </div>
 
@@ -83,7 +84,7 @@
                     <div class="card-body">
                         <div class="media align-items-center">
                             <div class="media-body right-chart-content">
-                                <h4>{{number_format($totals->total_amount_sum-$totals->paid_amount_sum,2)}}</h4>
+                                <h4>{{number_format($totals['total_amount_sum']-$totals['paid_amount_sum'],2)}}</h4>
                                 <span>Total Amount Balance</span>
                             </div>
 
@@ -104,6 +105,7 @@
                             <th scope="col">Customer</th>
                             <th scope="col">Date</th>
                             <th scope="col">Total Amount</th>
+                            <th scope="col">Total Item Qty</th>
                             <th scope="col">Paid Amount</th>
                             <th scope="col">Balance</th>
                             <th scope="col">Status</th>
@@ -131,6 +133,7 @@
                                 <th>{{$item->customer->name ?? "-"}}</th>
                                 <td>{{$item->sale_date}}</td>
                                 <td>{{number_format($item->total_amount,2)}}</td>
+                                <td>{{$item->total_items_quantity}}</td>
                                 <td>{{number_format($item->paid_amount,2)}}</td>
                                 <td>{{number_format($balance,2) }}</td>
                                 <td><span

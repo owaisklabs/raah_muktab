@@ -21,8 +21,9 @@ class SaleController extends Controller
      */
     public function index(Request $request)
     {
-
-        $query = Sale::has('items')->with('items', 'customer');
+        $query = Sale::has('items')
+            ->with(['items', 'customer'])
+            ->withSum('items as total_items_quantity', 'quantity'); // ✅ per sale
 
         if ($request->has('query')) {
             $filters = $request->query('query');
@@ -44,12 +45,10 @@ class SaleController extends Controller
             }
         }
 
-        $totals = (clone $query)
-            ->selectRaw('
-                SUM(total_amount) as total_amount_sum,
-                SUM(paid_amount) as paid_amount_sum
-            ')
-            ->first();
+        $totals = [
+            'total_amount_sum' => (clone $query)->toBase()->sum('total_amount'),
+            'paid_amount_sum'  => (clone $query)->toBase()->sum('paid_amount'),
+        ];
 
         $sales = $query->latest()->paginate(50);
 
@@ -88,13 +87,16 @@ class SaleController extends Controller
 
             $invoiceNumber = str_pad($nextId, 6, '0', STR_PAD_LEFT);
 
+            $paidAmount = ($request->sales_status === Sale::STATUS_PAID) ? $request->amount : 0;
+
             $sale = Sale::create([
-                'invoice_no' => $invoiceNumber,
-                'sale_date' => now(),
+                'invoice_no'   => $invoiceNumber,
+                'sale_date'    => now(),
                 'total_amount' => $request->amount,
-                'customer_id' => $request->customer_id,
-                'created_by' => auth()->id(),
-                'status' => $request->sales_status,
+                'paid_amount'  => $paidAmount,
+                'customer_id'  => $request->customer_id,
+                'created_by'   => auth()->id(),
+                'status'       => $request->sales_status,
             ]);
 
             foreach ($request->cartData as $item) {
