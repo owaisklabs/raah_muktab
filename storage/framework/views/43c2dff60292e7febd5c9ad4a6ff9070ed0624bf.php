@@ -63,7 +63,7 @@
         <tr>
             <td><strong>Invoice:</strong> #<?php echo e($sale->invoice_no); ?></td>
             <td><strong>Date:</strong> <?php echo e($sale->created_at->format('d/m/Y | H:i')); ?></td>
-            <td><strong>Customer:</strong> <?php echo e($sale->customer_name ?? "-"); ?></td>
+            <td><strong>Customer:</strong> <?php echo e($sale->customer->name ?? "-"); ?></td>
         </tr>
     </table>
 
@@ -78,8 +78,8 @@
         <?php
             $discountTotal = 0;
             $lineTotal = 0;
+            $totalQuantity = 0;
         ?>
-
         <?php $__currentLoopData = $sale->items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>
                 <td><?php echo e($item->book->title ?? "-"); ?></td>
@@ -93,9 +93,11 @@
                 $discount = $item->line_total - $item->total;
                 $discountTotal += $discount;
                 $lineTotal += $item->line_total;
+                $totalQuantity += $item->quantity;
             ?>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
+        <tr><td colspan="1"><strong>Total Quantity</strong></td><td> <strong> <?php echo e($totalQuantity); ?><strong></td></tr>
         <tr><td colspan="4"><strong>Total</strong></td><td><?php echo e(number_format($lineTotal,2)); ?></td></tr>
         <tr><td colspan="4"><strong>Discount</strong></td><td><?php echo e(number_format($discountTotal,2)); ?></td></tr>
         <tr><td colspan="4"><strong>Grand Total</strong></td><td><?php echo e(number_format($sale->total_amount,2)); ?></td></tr>

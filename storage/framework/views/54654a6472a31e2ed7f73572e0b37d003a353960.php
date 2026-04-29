@@ -1,3 +1,4 @@
+
 <?php $__env->startSection('title', 'Bootstrap Border Table'); ?>
 
 <?php $__env->startSection('css'); ?>

@@ -179,6 +179,7 @@
                     </td>
                     <input type="hidden" name="book_id[]" value="${item.id}">
                     <input type="hidden" name="book_price[]" value="${item.sell_price}">
+                    <input type="hidden" name="cost_price[]" value="${item.cost_price}">
                     <input type="hidden" name="line_total[]" value="${lineTotal.toFixed(2)}">
                     <td><input type="text" name="discount[]" class="form-control form-control-sm discount-input" value="${discount}" data-id="${item.id}"></td>
                     <td class="text-right">${lineTotal.toFixed(2)}</td>
@@ -313,6 +314,7 @@
                         qty: $(this).find('input[name="qty[]"]').val(),
                         discount: $(this).find('input[name="discount[]"]').val(),
                         price: $(this).find('input[name="book_price[]"]').val(),
+                        cost_price: $(this).find('input[name="cost_price[]"]').val(),
                         line_total: $(this).find('input[name="line_total[]"]').val(),
                         book_id: $(this).find('input[name="book_id[]"]').val(),
                     });

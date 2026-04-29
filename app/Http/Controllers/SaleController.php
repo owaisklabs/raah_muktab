@@ -103,6 +103,7 @@ class SaleController extends Controller
 
                 $quantity = $item['qty'];
                 $unitPrice = $item['price'];
+                $cost_price = $item['cost_price'];
                 $discount = $item['discount'] ?? 0;
 
                 $afterDiscount = $unitPrice * (1 - ($discount / 100));
@@ -112,6 +113,7 @@ class SaleController extends Controller
                     'book_id' => $item['book_id'],
                     'quantity' => $quantity,
                     'unit_price' => $unitPrice,
+                    'cost_price' => $cost_price,
                     'sale_price' => $afterDiscount,
                     'line_total' => $quantity * $unitPrice,
                     'discount' => $discount,

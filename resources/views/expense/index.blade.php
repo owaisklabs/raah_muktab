@@ -19,22 +19,25 @@
 @section('content')
     <div class="container-fluid">
         {{-- <div class="row"> --}}
-        <form action="#" class="row" method="GET">
+        <form action="#" class="row " id="search-form" method="GET">
             <div class="col-md-3 mb-3">
                 <label for="validationCustom01">Query</label>
-                <input class="form-control" name="query" type="text" placeholder="First name" required="">
+                <input class="form-control" name="query[name]" type="text" placeholder="First name" >
                 <div class="valid-feedback">Looks good!</div>
             </div>
             <div class="col-md-3 mb-3">
                 <label for="validationCustom02">From Date</label>
-                <input class="form-control" name="from_date" id="validationCustom02" type="date"  >
+                <input class="form-control" name="query[from_date]" value="{{ request('query.from_date') }}" id="validationCustom02" type="date"  >
             </div>
             <div class="col-md-3 mb-3">
                 <label for="validationCustom02">To Date</label>
-                <input class="form-control" name="to_date" id="validationCustom02" type="date"  >
+                <input class="form-control" name="query[to_date]" value="{{ request('query.to_date') }}" id="validationCustom02" type="date"  >
             </div>
-            <div class="col-md-3 mb-3" style="margin-top: 25px;">
+            <div class="col-md-2 mb-3" style="margin-top: 25px;">
                 <button class="btn btn-pill btn-primary btn-air-primary btn-lg" type="submit">Search</button>
+            </div>
+            <div class="col-md-1 mb-3" style="margin-top: 25px;">
+                <button class="btn btn-pill btn-primary btn-air-primary btn-lg" onclick="clearSearch()">Clear</button>
             </div>
         </form>
         {{-- </div> --}}
@@ -64,7 +67,7 @@
 
                         <tr>
                             @php
-                                
+
                                 $total_expense += $item->amount;
                             @endphp
                             <th scope="row">{{$item->id}}</th>
@@ -108,4 +111,23 @@
 @endsection
 
 @section('script')
+    <script>
+        var BASE_URL = "{{ url('') }}";
+
+        function clearSearch() {
+            // Clear text input
+            $("input[name='query[invoice_no]']").val("");
+
+            // Clear customer dropdown
+            $("#customer_id").val("");
+
+            // Clear dates
+            $("input[name='query[from_date]']").val("");
+            $("input[name='query[to_date]']").val("");
+
+            // Submit the form after clearing
+            $("#search-form").submit();
+        }
+
+    </script>
 @endsection

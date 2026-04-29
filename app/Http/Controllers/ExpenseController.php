@@ -7,16 +7,30 @@ use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $expenses = Expense::latest()->paginate(50);
+        $query = Expense::orderBY('date','desc');
+        if ($request->has('query')) {
+            $filters = $request->query('query');
+
+            if (!empty($filters['from_date'])) {
+                $query->whereDate('date', '>=', $filters['from_date']);
+            }
+
+            if (!empty($filters['to_date'])) {
+                $query->whereDate('date', '<=', $filters['to_date']);
+            }
+        }
+        $expenses = $query->paginate(50);
         return view('expense.index', compact('expenses'));
+
     }
 
     public function create()
     {
         return view('expense.create');
     }
+
     public function store(Request $request)
     {
 
@@ -37,10 +51,12 @@ class ExpenseController extends Controller
         return redirect()->route('expenses.index')->with('success', 'Expense added');
 
     }
+
     public function edit(Expense $expense)
     {
         return view('expense.update', compact('expense'));
     }
+
     public function update(Request $request, Expense $expense)
     {
         $request->validate([
@@ -54,6 +70,7 @@ class ExpenseController extends Controller
 
         return redirect()->route('expenses.index')->with('success', 'Expense updated');
     }
+
     public function destroy(Expense $expense)
     {
         $expense->delete();

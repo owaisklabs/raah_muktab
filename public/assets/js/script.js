@@ -1,3 +1,20 @@
+
+var BASE_URL = "{{ url('') }}";
+
+function clearSearch() {
+    // Clear text input
+    $("input[name='query[invoice_no]']").val("");
+
+    // Clear customer dropdown
+    $("#customer_id").val("");
+
+    // Clear dates
+    $("input[name='query[from_date]']").val("");
+    $("input[name='query[to_date]']").val("");
+
+    // Submit the form after clearing
+    $("form").submit();
+}
 (function ($) {
     "use strict";
     $(document).on('click', function (e) {

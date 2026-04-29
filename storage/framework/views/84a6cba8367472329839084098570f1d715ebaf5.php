@@ -90,6 +90,16 @@
                         </ul>
                     </li>
                     <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title<?php echo e(request()->routeIs(['expenses.index','expenses.create']) ? 'active' : ''); ?> " href="#">
+                            <i data-feather="shopping-cart"></i><span>Expenses</span>
+                            <div class="according-menu"><i class="fa fa-angle-<?php echo e(request()->routeIs(['expenses.index','expenses.create']) ? 'down' : 'right'); ?>"></i></div>
+                        </a>
+                        <ul class="sidebar-submenu" style="display: <?php echo e(request()->routeIs(['expenses.index','expenses.create'])  ? 'block' : 'none;'); ?>">
+                            <li><a href="<?php echo e(route('expenses.index')); ?>" class="<?php echo e(request()->routeIs(['expenses.index']) ? 'active' : ''); ?>">Expenses</a></li>
+                            <li><a href="<?php echo e(route('expenses.create')); ?>" class="<?php echo e(request()->routeIs(['expenses.create']) ? 'active' : ''); ?>">Create Expenses</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title<?php echo e(request()->routeIs(['customer.index','customer.create']) ? 'active' : ''); ?> " href="#">
                             <i data-feather="shopping-cart"></i><span>Customer</span>
                             <div class="according-menu"><i class="fa fa-angle-<?php echo e(request()->routeIs(['customer.index','customer.create']) ? 'down' : 'right'); ?>"></i></div>
