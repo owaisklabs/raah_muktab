@@ -24,14 +24,14 @@
                     {{-- user --}}
 
                     <li class="sidebar-list">
-						 {{ request()->routeIs(['sales.index','sales.create']) ? 'active' : '' }}
-                        <a class="sidebar-link sidebar-title {{ request()->routeIs(['sales.index','sales.create']) ? 'active' : '' }} " href="#">
+                        <a class="sidebar-link sidebar-title {{ request()->routeIs(['sales.index','sales.create','sales.show','sales.return.create','return-sales.index','return-sales.show']) ? 'active' : '' }} " href="#">
                             <i data-feather="shopping-bag"></i><span>Sales</span>
-                            <div class="according-menu"><i class="fa fa-angle-{{request()->routeIs(['sales.index','sales.create']) ? 'down' : 'right' }}"></i></div>
+                            <div class="according-menu"><i class="fa fa-angle-{{request()->routeIs(['sales.index','sales.create','sales.show','sales.return.create','return-sales.index','return-sales.show']) ? 'down' : 'right' }}"></i></div>
                         </a>
-                        <ul class="sidebar-submenu" style="display: {{request()->routeIs(['sales.index','sales.create']) ? 'block' : 'none;' }};">
-                            <li><a href="{{route('sales.index')}}" class="{{ request()->routeIs(['sales.index']) ? 'active' : '' }}">Sales</a></li>
+                        <ul class="sidebar-submenu" style="display: {{request()->routeIs(['sales.index','sales.create','sales.show','sales.return.create','return-sales.index','return-sales.show']) ? 'block' : 'none;' }};">
+                            <li><a href="{{route('sales.index')}}" class="{{ request()->routeIs(['sales.index','sales.show']) ? 'active' : '' }}">Sales</a></li>
                             <li><a href="{{route('sales.create')}}" class="{{ request()->routeIs(['sales.create']) ? 'active' : '' }}">Create Sale</a></li>
+                            <li><a href="{{route('return-sales.index')}}" class="{{ request()->routeIs(['return-sales.index','return-sales.show','sales.return.create']) ? 'active' : '' }}">Sale Returns</a></li>
                         </ul>
                     </li>
 					<li class="sidebar-list">

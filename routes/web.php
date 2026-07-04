@@ -20,6 +20,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('dashboard')->group(function(){
         Route::get('/',[DashboardController::class,'index'])->name('dashboard');
         Route::resource('sales',\App\Http\Controllers\SaleController::class);
+        Route::get('sales/{sale}/return', [\App\Http\Controllers\SaleReturnController::class, 'create'])->name('sales.return.create');
+        Route::resource('return-sales',\App\Http\Controllers\SaleReturnController::class)->except(['edit', 'update', 'destroy', 'create']);
         Route::resource('author',\App\Http\Controllers\AuthorController::class);
         Route::resource('publisher',\App\Http\Controllers\PublisherController::class);
         Route::resource('supplier',\App\Http\Controllers\SupplierController::class);

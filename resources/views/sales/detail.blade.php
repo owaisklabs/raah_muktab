@@ -140,6 +140,39 @@
         </tbody>
     </table>
 </div>
+
+@if($sale->returns->isNotEmpty())
+<hr>
+
+<h5 class="mb-3">Return History</h5>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>#</th>
+                <th>Return Invoice</th>
+                <th>Return Amount</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach($sale->returns as $index => $return)
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $return->return_invoice_no }}</td>
+                <td>{{ number_format($return->total_return_amount, 2) }}</td>
+                <td>{{ $return->created_at->format('d M Y H:i') }}</td>
+                <td>
+                    <a href="{{ route('return-sales.show', $return) }}" class="btn btn-sm btn-primary">View</a>
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+</div>
+@endif
 <hr>
 
 <h5 class="mb-3">Payment Records</h5>
@@ -202,6 +235,17 @@
 
         <div class="row mt-3">
             <div class="col-md-12 text-end">
+
+                @php
+                    $hasReturnableItems = $sale->items->contains(fn ($item) => $item->returnableQuantity() > 0);
+                @endphp
+
+                @if($hasReturnableItems)
+                    <a href="{{ route('sales.return.create', $sale) }}"
+                       class="btn btn-warning">
+                        Return Sale
+                    </a>
+                @endif
 
                 <a href="{{ url('/dashboard/sales/'.$sale->id.'/edit') }}"
                    class="btn btn-warning ">

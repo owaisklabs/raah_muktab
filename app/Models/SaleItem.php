@@ -19,4 +19,19 @@ class SaleItem extends Model
     {
         return $this->belongsTo(Book::class);
     }
+
+    public function returnItems()
+    {
+        return $this->hasMany(SaleReturnItem::class);
+    }
+
+    public function returnedQuantity(): int
+    {
+        return (int) $this->returnItems()->sum('quantity');
+    }
+
+    public function returnableQuantity(): int
+    {
+        return max(0, $this->quantity - $this->returnedQuantity());
+    }
 }
